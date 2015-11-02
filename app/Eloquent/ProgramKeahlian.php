@@ -37,4 +37,15 @@ class ProgramKeahlian extends Model
     {
         return $this->belongsTo(BidangKeahlian::class, 'bidang_id', 'id');
     }
+
+
+    /**
+     * HasMany Relation to: App\Eloquent\PaketKeahlian
+     * 
+     * @return mixed 
+     */
+    public function paketKeahlian()
+    {
+        return $this->hasMany(PaketKeahlian::class, 'program_id', 'id');
+    }
 }

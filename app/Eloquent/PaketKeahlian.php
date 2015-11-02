@@ -40,17 +40,6 @@ class PaketKeahlian extends Model
 
 
     /**
-     * BelonsTo Relation to: App\Eloquent\BidangKeahlian
-     * 
-     * @return mixed 
-     */
-    public function bidangKeahlian()
-    {
-        return $this->belongsTo(BidangKeahlian::class, 'bidang_id', 'id');
-    }
-
-
-    /**
      * HasMany Relation tor: App\Eloquent\Siswa
      * 
      * @return mixed 
@@ -58,5 +47,16 @@ class PaketKeahlian extends Model
     public function siswa()
     {
         return $this->hasMany(Siswa::class, 'paket_id', 'id');
+    }
+
+
+    /**
+     * HasMany Relation to: App\Eloquent\Mapel;
+     * 
+     * @return mixed 
+     */
+    public function mapel()
+    {
+        return $this->hasMany(Mapel::class, 'paket_id', 'id');
     }
 }

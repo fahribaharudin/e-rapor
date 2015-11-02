@@ -47,7 +47,7 @@ class BidangKeahlian extends Model
      */
     public function paketKeahlian()
     {
-        return $this->hasMany(PaketKeahlian::class, 'bidang_id', 'id');
+        return $this->hasManyThrough(PaketKeahlian::class, ProgramKeahlian::class, 'bidang_id', 'id');
     }
     
 }

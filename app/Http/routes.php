@@ -21,7 +21,26 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::resource('/admin/siswa', 'Admin\SiswaController', ['only' => 'index']);
 		Route::resource('/admin/kelas', 'Admin\KelasController', ['only' => 'index']);
 		Route::resource('/admin/siswa-kelas', 'Admin\SiswaPerKelasController', ['only' => 'index']);
+		
+		# Admin mapel routes...
 		Route::resource('/admin/mapel', 'Admin\MapelController', ['only' => 'index']);
+		Route::get('/admin/mapel/paket/{paket_id}', [
+			'as' => 'admin.mapel.paket.index' ,'uses' => 'Admin\MapelController@indexByPaket'
+		]);
+
+		# Admin mapel - SelectBoxFeeder (Ajax request) routes...
+		Route::get('/admin/mapel/select-box-feed/bidang', [
+			'as' => 'admin.mapel.select-box-feed.bidang', 
+			'uses' => 'Admin\MapelController@selectBoxFeedBidang'
+		]);
+		Route::get('/admin/mapel/select-box-feed/program/{bidang_id}', [
+			'as' => 'admin.mapel.select-box-feed.program', 
+			'uses' => 'Admin\MapelController@selectBoxFeedProgram'
+		]);
+		Route::get('/admin/mapel/select-box-feed/paket/{program_id}', [
+			'as' => 'admin.mapel.select-box-feed.paket', 
+			'uses' => 'Admin\MapelController@selectBoxFeedPaket'
+		]);
 	});
 
 	Route::get('/guru', ['as' => 'guru', function() { return 'guru'; }]);

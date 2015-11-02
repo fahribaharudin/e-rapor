@@ -113,12 +113,12 @@ class DataKeahlianSeeder extends Seeder
     protected function createPaketKeahlian()
     {
     	$paket = [
-    		['program_id' => 1, 'bidang_id' => 1, 'nama' => 'Akuntansi'],
-    		['program_id' => 2, 'bidang_id' => 1, 'nama' => 'Administrasi Perkantoran'],
-    		['program_id' => 3, 'bidang_id' => 1, 'nama' => 'Pemasaran'],
-    		['program_id' => 4, 'bidang_id' => 2, 'nama' => 'Rekayasa Perangkat Lunak'],
-    		['program_id' => 4, 'bidang_id' => 2, 'nama' => 'Teknik Komputer dan Jaringan'],
-    		['program_id' => 4, 'bidang_id' => 2, 'nama' => 'Multimedia'],
+    		['program_id' => 1, 'nama' => 'Akuntansi'],
+    		['program_id' => 2, 'nama' => 'Administrasi Perkantoran'],
+    		['program_id' => 3, 'nama' => 'Pemasaran'],
+    		['program_id' => 4, 'nama' => 'Rekayasa Perangkat Lunak'],
+    		['program_id' => 4, 'nama' => 'Teknik Komputer dan Jaringan'],
+    		['program_id' => 4, 'nama' => 'Multimedia'],
     	];
 
     	$paket_array = [];

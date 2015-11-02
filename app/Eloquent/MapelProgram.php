@@ -3,26 +3,26 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Eloquent\ModelTrait\HasUserAccount;
+use App\Eloquent\ModelTrait\HasMapelParent;
 
-class Administrator extends Model
+class MapelProgram extends Model
 {
 
-    use HasUserAccount;
+	use HasMapelParent;
 
-    /**
+	/**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'administrator';
+    protected $table = 'mapel_program';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['nama', 'nip'];
+    protected $fillable = ['program_id', 'nama_mapel'];
 
     /**
      * Disable timestamps

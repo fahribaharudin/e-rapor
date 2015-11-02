@@ -3,9 +3,12 @@
 namespace App\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Eloquent\ModelTrait\HasUserAccount;
 
 class Guru extends Model
 {
+
+    use HasUserAccount;
     
     /**
      * The database table used by the model.
@@ -28,12 +31,4 @@ class Guru extends Model
      */
     public $timestamps = false;
 
-    /**
-     * Polymorphic relation morphOne: User
-     * 
-     * @return mixed 
-     */
-    public function userAccount() {
-        return $this->morphOne(User::class, 'owner', 'owner_type', 'owner_id', 'id');
-    }
 }

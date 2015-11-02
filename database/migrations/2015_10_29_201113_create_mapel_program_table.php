@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaketKeahlianTable extends Migration
+class CreateMapelProgramTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,10 @@ class CreatePaketKeahlianTable extends Migration
      */
     public function up()
     {
-        Schema::create('paket_keahlian', function (Blueprint $table) {
+        Schema::create('mapel_program', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('program_id')->unsigned();
-            $table->string('nama');
-
-            $table->foreign('program_id')
-                ->references('id')
-                ->on('program_keahlian')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
+            $table->string('nama_mapel');
         });
     }
 
@@ -32,6 +26,6 @@ class CreatePaketKeahlianTable extends Migration
      */
     public function down()
     {
-        Schema::drop('paket_keahlian');
+        Schema::drop('mapel_program');
     }
 }

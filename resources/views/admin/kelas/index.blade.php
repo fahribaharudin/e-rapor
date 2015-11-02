@@ -14,6 +14,7 @@
 					<li><a href="{{ route('admin') }}">Administrator Dashboard</a></li>
 					<li class="active">Data Kelas</li>
 				</ol>
+				<hr>
 				<div class="table-responsive">
 					<table class="table">
 						<thead>
