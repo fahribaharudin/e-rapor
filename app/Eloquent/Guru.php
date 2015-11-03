@@ -31,4 +31,16 @@ class Guru extends Model
      */
     public $timestamps = false;
 
+
+    /**
+     * BelongsToMany Relation to: App\Eloquent\Mapel
+     * if the guru is a guru mapel then this method returning
+     * the mapel that guru has been teaching for. 
+     * 
+     * @return mixed 
+     */
+    public function mapel()
+    {
+        return $this->belongsToMany(Mapel::class, 'guru_mapel');
+    }
 }

@@ -122,33 +122,40 @@ class SiswaAndKelasSeeder extends Seeder
     public function craeteKelas()
     {
     	$kelas = [];
-    	
+
     	foreach ($this->paket->all() as $paket) {
 			switch ($paket->id) {
 				case 1:
-					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'AK']); 
+					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'AK', 2, 10]);
+
 					break;
 
 				case 2:
-					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'AP']); 
+					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'AP'], 2, 16); 
+
 					break;
 
 				case 3:
-					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'PM']); 
+					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'PM'], 2, 22); 
+
 					break;
 
 				case 4:
-					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'RPL']); 
+					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'RPL'], 2, 28); 
+
 					break;
 
 				case 5:
-					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'TKJ']); 
+					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'TKJ'], 2, 34);
+
 					break;
 
 				case 6:
-					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'MM'], 1); 
+					$kelas[] = $this->createKelasForPaket(['paket_id' => $paket->id, 'nama_kelas' => 'MM'], 1, 40);
+
 					break;
 			}
+
     	}
 
     	$newKelas = [];
@@ -165,10 +172,9 @@ class SiswaAndKelasSeeder extends Seeder
      * @param  array  $data 
      * @return array       
      */
-    protected function createKelasForPaket(array $data, $jumlahKelas = 2)
+    protected function createKelasForPaket(array $data, $jumlahKelas = 2, $guru_id = 10)
     {
     	$kelas = [];
-    	$guru_id = 10;
 
     	for ($i=1; $i<=$jumlahKelas; $i++) {	
 			for ($j=1; $j <= 3; $j++) { 

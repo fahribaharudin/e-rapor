@@ -53,4 +53,17 @@ class Mapel extends Model
         return $this->belongsTo(PaketKeahlian::class, 'paket_id', 'id');
     }
 
+
+    /**
+     * BelongsToMany Relation to: App\Eloquent\Guru
+     * this is a guru mapel for each mapel in the database
+     * also based on that semester
+     * 
+     * @return mixed 
+     */
+    public function guru()
+    {
+        return $this->belongsToMany(Guru::class, 'guru_mapel');
+    }
+
 }
