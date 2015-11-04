@@ -41,7 +41,7 @@ class GuruTableSeeder extends Seeder
     {
     	$nip = 610300751;
 
-    	for ($i=1; $i<=50; $i++) {
+    	for ($i=1; $i<=150; $i++) {
     		$this->guru->create([
     			'nama' => $this->faker->name,
     			'nip' => (string) ($nip + $i),

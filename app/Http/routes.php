@@ -67,3 +67,22 @@ Route::group(['middleware' => 'auth'], function() {
 		}
 	}]);
 });
+
+
+Route::get('/test/{id}', function($id) {
+	$kelas = App\Eloquent\Kelas::find($id);
+
+	echo "
+		<pre>
+			{$kelas->nama_kelas} - tingkat kelas: {$kelas->tingkat_kelas}
+		</pre>
+	";
+	foreach ($kelas->mapel as $mapel) {
+		echo "<pre>
+			{$mapel->child->nama_mapel}, semester: {$mapel->pivot->semester}, guru: ";
+			foreach ($mapel->guru as $guru) {
+				echo $guru->pivot->semester == $mapel->pivot->semester ? $guru->nama . ', ' : '';
+			}
+		echo "</pre>";
+	}
+});

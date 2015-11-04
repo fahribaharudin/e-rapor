@@ -63,7 +63,7 @@ class Mapel extends Model
      */
     public function guru()
     {
-        return $this->belongsToMany(Guru::class, 'guru_mapel');
+        return $this->belongsToMany(Guru::class, 'guru_mapel')->withPivot('semester');
     }
 
 }

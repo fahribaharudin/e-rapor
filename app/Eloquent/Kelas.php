@@ -59,4 +59,5 @@ class Kelas extends Model
     {
         return $this->belongsToMany(Siswa::class, 'siswa_perkelas', 'kelas_id');
     }
+
 }

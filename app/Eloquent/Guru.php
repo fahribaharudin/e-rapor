@@ -35,7 +35,7 @@ class Guru extends Model
     /**
      * BelongsToMany Relation to: App\Eloquent\Mapel
      * if the guru is a guru mapel then this method returning
-     * the mapel that guru has been teaching for. 
+     * the mapel that guru teaching for. 
      * 
      * @return mixed 
      */

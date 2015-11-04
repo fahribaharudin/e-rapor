@@ -8,7 +8,13 @@ use App\Eloquent;
 class GuruMapelSeeder extends Seeder
 {
 
+    /**
+     * Mapel Repository
+     * 
+     * @var App\Repositories\MapelRepository
+     */
 	protected $mapelRepo;
+
 
 	/**
 	 * Class Constructor!
@@ -28,43 +34,39 @@ class GuruMapelSeeder extends Seeder
      */
     public function run()
     {
-    	$allMapel = $this->mapelRepo->getByPaketKeahlian(4);
+    	// all mapel
+        $allMapel = $this->mapelRepo->getByPaketKeahlian(4);
 
-    	// Guru mapel available = 43
+        // take guru_id from 43
+    	$guru_id = 43;
+
     	foreach ($allMapel as $mapel) {
-    		if ($mapel->id == 64) {
+            // for RPL only (64 - 89)
+            if ($mapel->id >= 64 && $mapel->id <= 89) {
     			foreach (explode(',', $mapel->semester) as $semester) {
-		    		if ($semester == 1) {
-			    		$mapel->guru()->attach(43, ['semester' => '1']);
-		    		} elseif ($semester == 2) {
-			    		$mapel->guru()->attach(43, ['semester' => '2']);
-		    		} elseif ($semester == 3) {
-			    		$mapel->guru()->attach(44, ['semester' => '3']);
-		    		} elseif ($semester == 4) {
-			    		$mapel->guru()->attach(44, ['semester' => '4']);
-		    		} elseif ($semester == 5) {
-			    		$mapel->guru()->attach(45, ['semester' => '5']);
-		    		} elseif ($semester == 6) {
-			    		$mapel->guru()->attach(45, ['semester' => '6']);
-		    		}
+
+                    if (in_array(1, explode(',', $mapel->semester)) && $semester == 1) {
+                        $mapel->guru()->attach($guru_id, ['semester' => '1']);
+                    } 
+                    elseif (in_array(2, explode(',', $mapel->semester)) && $semester == 2) {
+                        $mapel->guru()->attach($guru_id, ['semester' => '2']);
+                    }    
+                    else if (in_array(3, explode(',', $mapel->semester)) && $semester == 3) {
+                        $mapel->guru()->attach($guru_id + 1, ['semester' => '3']);
+                    } 
+                    elseif (in_array(4, explode(',', $mapel->semester)) && $semester == 4) {
+                        $mapel->guru()->attach($guru_id + 1, ['semester' => '4']);
+                    }   
+                    elseif (in_array(5, explode(',', $mapel->semester)) && $semester == 5) {
+                        $mapel->guru()->attach($guru_id + 2, ['semester' => '5']);
+                    } 
+                    elseif (in_array(5, explode(',', $mapel->semester)) && $semester == 6) {
+                        $mapel->guru()->attach($guru_id + 2, ['semester' => '6']);
+                    }
+
     			}
-    		} elseif ($mapel->id == 75) {
-    			foreach (explode(',', $mapel->semester) as $semester) {
-    				if (in_array(1, explode(',', $mapel->semester)) && $semester == 1) {
-    					$mapel->guru()->attach(46, ['semester' => '1']);
-    				} elseif (in_array(2, explode(',', $mapel->semester)) && $semester == 2) {
-    					$mapel->guru()->attach(46, ['semester' => '2']);
-    				} elseif (in_array(3, explode(',', $mapel->semester)) && $semester == 3) {
-    					$mapel->guru()->attach(47, ['semester' => '3']);
-    				} elseif (in_array(4, explode(',', $mapel->semester)) && $semester == 4) {
-    					$mapel->guru()->attach(47, ['semester' => '4']);
-    				} elseif (in_array(5, explode(',', $mapel->semester)) && $semester == 5) {
-    					$mapel->guru()->attach(48, ['semester' => '5']);
-    				} elseif (in_array(6, explode(',', $mapel->semester)) && $semester == 6) {
-    					$mapel->guru()->attach(48, ['semester' => '6']);
-    				}
-    			}
-    		}
+                $guru_id = $guru_id + 3;
+            } 
     	}
     }
 }
