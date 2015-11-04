@@ -66,4 +66,15 @@ class Mapel extends Model
         return $this->belongsToMany(Guru::class, 'guru_mapel')->withPivot('semester');
     }
 
+
+    /**
+     * BelongsToMany Relation to: App\Eloquent\KompetensiDasar
+     * 
+     * @return mixed
+     */
+    public function kompetensiDasar()
+    {
+        return $this->hasMany(KompetensiDasar::class, 'mapel_id');
+    }
+
 }

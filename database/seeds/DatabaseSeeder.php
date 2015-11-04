@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(SiswaAndKelasSeeder::class);
         // $this->call(MapelSeeder::class);
         // $this->call(GuruMapelSeeder::class);
+        
+        $this->call(KompetensiDasarSeeder::class);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
