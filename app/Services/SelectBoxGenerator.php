@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Eloquent;
 
-class KeahlianSelectBoxGenerator 
+class SelectBoxGenerator 
 {
 
 	/**
@@ -59,7 +59,7 @@ class KeahlianSelectBoxGenerator
 		foreach ($this->bidang_keahlian->all() as $bidang) {
 			$selectBox[] = [
 				'value' => $bidang->id,
-				'name' => $bidang->nama,
+				'text' => $bidang->nama,
 			];
 		}
 
@@ -79,7 +79,7 @@ class KeahlianSelectBoxGenerator
 		$program_keahlian = $this->bidang_keahlian->find($bidang_id)->programKeahlian;
 
 		foreach ($program_keahlian as $program) {
-			$selectBox[] = ['value' => $program->id, 'name' => $program->nama];
+			$selectBox[] = ['value' => $program->id, 'text' => $program->nama];
 		}
 
 		return $selectBox;
@@ -98,12 +98,28 @@ class KeahlianSelectBoxGenerator
 		$paket_keahlian = $this->program_keahlian->find($program_id)->paketKeahlian;
 
 		foreach ($paket_keahlian as $paket) {
-			$selectBox[] = ['value' => $paket->id, 'name' => $paket->nama];
+			$selectBox[] = ['value' => $paket->id, 'text' => $paket->nama];
 		}
 
 		return $selectBox;
+	}
 
-		return $paket_keahlian;
+
+	/**
+	 * Generate Mapel selectbox feed
+	 * 
+	 * @param  integer $paket_id 
+	 * @return array             
+	 */
+	public function generateMapel($paket_id)
+	{
+		$selectBox = [];
+
+		foreach ($this->paket_keahlian->find($paket_id)->mapel as $mapel) {
+			$selectbox[] = ['value' => $mapel->id, 'text' => $mapel->child->nama_mapel];
+		}
+
+		return $selectbox;
 	}
 	
 }

@@ -24,10 +24,11 @@
 	<script type="text/javascript" src="{{ asset('js/vendor/bootstrap.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/vendor/jquery.dataTables.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/vendor/dataTables.bootstrap.min.js') }}"></script>
-	
+	<script type="text/javascript"> var basePath = '{{ url() }}' </script>
+
 	<!-- App Scripts -->
 	<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-	
+
 	@yield('script')
 
 </body>

@@ -57,4 +57,16 @@ class MapelRepository extends Repository
 		return $this->mapel->with('child')->where('paket_id', '=', $paket_id)->get();
 	}
 
+
+	/**
+	 * Get kompetensi dasar by mapel
+	 * 
+	 * @param  integer $id 
+	 * @return mixed     
+	 */
+	public function getKompetensiDasar($id)
+	{
+		return $this->mapel->with('kompetensiDasar', 'child', 'paketKeahlian')->where('id', '=', $id)->first();
+	}
+
 }

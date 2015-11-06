@@ -21,14 +21,15 @@
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data Sekolah <b class="caret"></b></a>
 		          	<ul class="dropdown-menu">
 		            	<li><a href="{{ route('admin.profile-sekolah.index') }}">Data Profile Sekolah</a></li>
-		            	<li class="divider"></li>
 		            	<li><a href="{{ route('admin.paket-keahlian.index') }}">Data Paket Keahlian</a></li>
+		            	<li class="divider"></li>
 		            	<li><a href="{{ route('admin.guru.index') }}">Data Guru</a></li>
 		            	<li><a href="{{ route('admin.siswa.index') }}">Data Siswa</a></li>
 		            	<li><a href="{{ route('admin.kelas.index') }}">Data Kelas</a></li>
 		            	<li><a href="{{ route('admin.siswa-kelas.index') }}">Data Siswa Perkelas</a></li>
 		            	<li class="divider"></li>
-		            	<li><a href="{{ route('admin.mapel.index') }}">Data Mapel</a></li>
+		            	<li><a href="{{ route('admin.mapel.index') }}">Data Mata Pelajaran</a></li>
+		            	<li><a href="{{ route('admin.kompetensi-dasar.index') }}">Data Kompetensi Dasar</a></li>
 		          	</ul>
 		        </li>
 			</ul>

@@ -1,0 +1,19 @@
+{
+  "name": "E-Rapor",
+  "version": "0.0.0",
+  "authors": [
+    "Fahri Baharudin <fahrybaharudin@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "datatables": "~1.10.9"
+  }
+}

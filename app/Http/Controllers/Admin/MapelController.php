@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\MapelRepository;
 use App\Repositories\PaketKeahlianRepository;
-use App\Services\KeahlianSelectBoxGenerator as SelectBoxGenerator;
+use App\Services\SelectBoxGenerator as SelectBoxGenerator;
 use App\Http\Controllers\Admin\ControllerTrait\SelectBoxFeed;
 
 class MapelController extends Controller
