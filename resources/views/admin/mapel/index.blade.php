@@ -4,7 +4,7 @@
 	
 	@include('admin._navbar')
 
-	<div class="container-wide">
+	<div class="container-wide" id="MapelIndex">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="page-header">
@@ -54,10 +54,4 @@
 		</div>
 	</div>
 
-@endsection
-
-@section ('script')
-	<script type="text/javascript">
-		EraporApp.BidangDropdown.init();
-	</script>
 @endsection

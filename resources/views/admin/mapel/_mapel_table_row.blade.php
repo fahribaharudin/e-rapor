@@ -49,6 +49,6 @@
 		<td>{!! in_array(6, explode(',', $mapel->semester)) ? '<small class="text-muted">n/a</small>' : '&nbsp;' !!}</td>
 	@endif
 	
-	<td><a href="#"><span class="glyphicon glyphicon-pencil"></span></a></td>
+	<td><a href="{{ route('admin.mapel.edit', $mapel->id) }}"><span class="glyphicon glyphicon-pencil"></span></a></td>
 	<td><a href="#"><span class="glyphicon glyphicon-trash"></span></a></td>
 </tr>

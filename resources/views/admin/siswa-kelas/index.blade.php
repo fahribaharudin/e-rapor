@@ -19,7 +19,7 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>#</th><th>Nama Siswa</th><th>NIS</th><th>Nama Kelas</th><th>Edit</th><th>Hapus</th>
+								<th>#</th><th>Nama Siswa</th><th>NIS</th><th>Nama Kelas</th><th>Tingkat Kelas</th><th>Edit</th><th>Hapus</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -30,6 +30,7 @@
 									<td>{{ $siswa['nama'] }}</td>
 									<td>{{ $siswa['nis'] }}</td>
 									<td>{{ $siswa['kelas'][0]['nama_kelas'] }}</td>				
+									<td>{{ $siswa['kelas'][0]['tingkat_kelas'] }}</td>				
 									<td><a href="#"><b class="glyphicon glyphicon-pencil"></b></a></td>
 									<td><a href="#"><b class="glyphicon glyphicon-trash"></b></a></td>
 								</tr>

@@ -4,7 +4,7 @@
 	
 	@include('admin._navbar')
 
-	<div class="container-wide">
+	<div class="container-wide" id="KompetensiIndex">
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="page-header">
@@ -62,15 +62,4 @@
 		</div>
 	</div>
 
-@endsection
-
-@section ('script')
-	<script type="text/javascript">
-		EraporApp.PaketDropdown.handleChangeEvent = function(evt) {
-			if (evt.currentTarget.value != 'null') {
-				EraporApp.MapelDropdown.init(evt.currentTarget.value);
-			}
-		};
-		EraporApp.BidangDropdown.init();
-	</script>
 @endsection

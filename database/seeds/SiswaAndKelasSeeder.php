@@ -68,11 +68,21 @@ class SiswaAndKelasSeeder extends Seeder
         $this->createSiswa();
         $this->craeteKelas();
       	
+      	// RPL-1 tingkat 1
       	$kelas1 = $this->kelas->find(19);
       	$kelas1->siswa()->attach([31, 32, 33, 34, 35]);
 
+      	// RPL-2 tingkat 1
       	$kelas2 = $this->kelas->find(22);
       	$kelas2->siswa()->attach([36, 37, 38, 39, 40]);
+
+      	// TKJ-1 tingkat 1
+      	$kelas3 = $this->kelas->find(25);
+      	$kelas3->siswa()->attach([41, 42, 43, 44, 45]);
+
+      	// TKJ-2 tingkat 1
+      	$kelas4 = $this->kelas->find(28);
+      	$kelas4->siswa()->attach([46, 47, 48, 49, 50]);
     }
 
 

@@ -69,4 +69,58 @@ class MapelRepository extends Repository
 		return $this->mapel->with('kompetensiDasar', 'child', 'paketKeahlian')->where('id', '=', $id)->first();
 	}
 
+
+	/**
+	 * Get a mapel from database
+	 * 
+	 * @param  integer $id 
+	 * @return mixed     
+	 */
+	public function getOne($id)
+	{
+		return $this->mapel->find($id);
+	}
+
+
+	/**
+	 * Update a mapel on the database
+	 * also the guru mapel
+	 * 
+	 * @param  integer $id 
+	 * @return mixed     
+	 */
+	public function update($id, $data)
+	{
+		$mapel = $this->mapel->find($id);
+		
+		$data['semester'] = '';
+		
+		for ($i=1; $i<=6; $i++) {
+			if(isset($data['input_semester_' . $i])) {
+				// not using sync! this is manual search on pivot :)
+				$pivot = \DB::table('guru_mapel')
+					->where('mapel_id', '=', $mapel->id)
+					->where('semester', '=', $data['input_semester_' . $i]);
+
+				// delete pivot if exists
+				$pivot->delete();
+
+				// insert a new pivot / update
+				$mapel->guru()->attach($data['input_guru_semester_' . $i], [
+					'semester' => $data['input_semester_' . $i]
+				]);
+
+				// generate semester string
+				$data['semester'] = $data['semester'] . ',' .  $data['input_semester_' . $i];
+			}
+		}
+
+		// Update the model
+		$mapel->kelompok = $data['kelompok'];
+		$mapel->semester = ltrim($data['semester'], ',');
+		$mapel->child()->update(['nama_mapel' => $data['nama']]);
+		
+		return $mapel->save();
+	}
+
 }

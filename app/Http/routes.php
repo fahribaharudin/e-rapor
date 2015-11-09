@@ -23,12 +23,12 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::resource('/admin/siswa-kelas', 'Admin\SiswaPerKelasController', ['only' => 'index']);
 		
 		# Admin mapel routes...
-		Route::resource('/admin/mapel', 'Admin\MapelController', ['only' => 'index']);
-		Route::get('/admin/mapel/paket/{paket_id}', ['as' => 'admin.mapel.paket.index' ,'uses' => 'Admin\MapelController@indexByPaket']);
+		Route::resource('/admin/mapel', 'Admin\MapelController', ['only' => ['index', 'edit', 'update']]);
+		Route::get('/admin/paket/{paket_id}/mapel', ['as' => 'admin.mapel.paket.index' ,'uses' => 'Admin\MapelController@indexByPaket']);
 
 		# Admin kompetensi routes...
 		Route::resource('/admin/kompetensi-dasar', 'Admin\KompetensiController', ['only' => 'index']);
-		Route::get('/admin/kompetensi-dasar/mapel/{mapel_id}', ['as' => 'admin.kompetensi-dasar.mapel.index', 'uses' => 'Admin\KompetensiController@indexByMapel']);
+		Route::get('/admin/mapel/{mapel_id}/kompetensi-dasar', ['as' => 'admin.kompetensi-dasar.mapel.index', 'uses' => 'Admin\KompetensiController@indexByMapel']);
 
 		# Admin mapel - SelectBoxFeeder (Ajax request) routes...
 		Route::get('/admin/mapel/select-box-feed/bidang', ['as' => 'admin.mapel.select-box-feed.bidang', 'uses' => 'Admin\MapelController@selectBoxFeedBidang']);

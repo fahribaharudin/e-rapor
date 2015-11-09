@@ -1,0 +1,7 @@
+#
+- Create edit form (DONE)
+- PUT request on controller (MapelController)
+#
+- Nilai Table Seeder
+- Nilai Model Relation (not yet build)
+- Nilai insert algorithm already in the seeder (NilaiSeeder)
