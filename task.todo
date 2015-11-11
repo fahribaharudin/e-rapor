@@ -1,7 +1,6 @@
-#
-- Create edit form (DONE)
-- PUT request on controller (MapelController)
-#
-- Nilai Table Seeder
-- Nilai Model Relation (not yet build)
-- Nilai insert algorithm already in the seeder (NilaiSeeder)
+Nilai Pengetahuan:
+ ✔ Update nilai pengetahuan - (Admin\Controller@update) @done (15-11-11 15:54)
+ ✔ Show nilai pengetahuan (on route: admin.nilai-pengetahuan.index-byMapel) @done (15-11-11 19:18)
+
+ Nilai Keterampilan:
+  ☐ CRUD!

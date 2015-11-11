@@ -18,4 +18,8 @@ $(document).ready(function() {
 		var MapelEditForm = require('./MapelEditForm');
 		MapelEditForm.init();
 	}
+	else if ($('#NilaiPengetahuanIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		KelasDropDown.init();
+	}
 });

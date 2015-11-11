@@ -38,6 +38,24 @@ class KelasRepository extends Repository
 
 
 	/**
+	 * Get all kelas wich contains siswa on it
+	 * 
+	 * @return mixed
+	 */
+	public function getKelasContainsSiswa()
+	{
+		$allKelas = $this->getAll();
+		$allKelas = $allKelas->filter(function($kelas) {
+			if (count($kelas->siswa) != 0) {
+				return $kelas;
+			}
+		});
+
+		return $allKelas;
+	}
+
+
+	/**
 	 * Get all kelas with siswa its contain
 	 * 
 	 * @return mixed 
@@ -45,5 +63,17 @@ class KelasRepository extends Repository
 	public function getWithSiswa()
 	{
 		return $this->kelas->with('siswa')->get();
+	}
+
+
+	/**
+	 * Get one kelas from database
+	 * 
+	 * @param  integer $kelas_id 
+	 * @return mixed           
+	 */
+	public function getOne($kelas_id)
+	{
+		return $this->kelas->find($kelas_id);
 	}
 }

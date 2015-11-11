@@ -30,6 +30,8 @@
 		            	<li class="divider"></li>
 		            	<li><a href="{{ route('admin.mapel.index') }}">Data Mata Pelajaran</a></li>
 		            	<li><a href="{{ route('admin.kompetensi-dasar.index') }}">Data Kompetensi Dasar</a></li>
+		            	<li class="divider"></li>
+		            	<li><a href="{{ route('admin.nilai-pengetahuan.index') }}">Nilai Pengetahuan</a></li>
 		          	</ul>
 		        </li>
 			</ul>

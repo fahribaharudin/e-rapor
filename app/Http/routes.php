@@ -35,6 +35,15 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('/admin/mapel/select-box-feed/program/{bidang_id}', ['as' => 'admin.mapel.select-box-feed.program', 'uses' => 'Admin\MapelController@selectBoxFeedProgram']);
 		Route::get('/admin/mapel/select-box-feed/paket/{program_id}', ['as' => 'admin.mapel.select-box-feed.paket',  'uses' => 'Admin\MapelController@selectBoxFeedPaket']);
 		Route::get('/admin/kompetensi-dasar/select-box-feed/mapel/{paket_id}', ['as' => 'admin.kompetensi-dasar.select-box-feed.mapel', 'uses' => 'Admin\MapelController@selectBoxFeedMapel']);
+
+		# Admin nilai-pengetahuan routes...
+		Route::resource('/admin/nilai-pengetahuan', 'Admin\NilaiPengetahuanController', ['only' => ['index']]);
+		Route::get('/admin/nilai-pengetahuan/dropdown/kelas', ['as' => 'admin.nilai-pengetahuan.dropdown.kelas', 'uses' => 'Admin\NilaiPengetahuanController@kelasDropDown']);
+		Route::get('/admin/nilai-pengetahuan/dropdown/kelas/{kelas_id}/semester', ['as' => 'admin.nilai-pengetahuan.dropdown.semester', 'uses' => 'Admin\NilaiPengetahuanController@semesterFromKelasDropDown']);
+		Route::get('/admin/nilai-pengetahuan/dropdown/kelas/{kelas_id}/semester/{semester}/mapel', ['as' => 'admin.nilai-pengetahuan.dropdown.semester.mapel', 'uses' => 'Admin\NilaiPengetahuanController@mapelFromSemesterFromKelas']);
+		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/nilai-pengetahuan', ['as' => 'admin.nilai-pengetahuan.index-byMapel', 'uses' => 'Admin\NilaiPengetahuanController@indexByMapel']);
+		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-pengetahuan/edit', ['as' => 'admin.nilai-pengetahuan.edit', 'uses' => 'Admin\NilaiPengetahuanController@edit']);
+		Route::put('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-pengetahuan', ['as' => 'admin.nilai-pengetahuan.update', 'uses' => 'Admin\NilaiPengetahuanController@update']);
 	});
 
 	Route::get('/guru', ['as' => 'guru', function() { return 'guru'; }]);
@@ -60,8 +69,4 @@ Route::group(['middleware' => 'auth'], function() {
 				break;
 		}
 	}]);
-});
-
-Route::get('test', function() {
-	var_dump(url());
 });

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Eloquent;
+use App\Repositories;
 
 class SelectBoxGenerator 
 {
@@ -28,6 +29,13 @@ class SelectBoxGenerator
 	 */
 	protected $paket_keahlian;
 
+	/**
+	 * Kelas Repository
+	 * 
+	 * @var App\Repositories\KelasRepository
+	 */
+	protected $kelasRepo;
+
 
 	/**
 	 * Class Constructor!
@@ -39,11 +47,13 @@ class SelectBoxGenerator
 	public function __construct(
 		Eloquent\BidangKeahlian $bidang, 
 		Eloquent\ProgramKeahlian $program, 
-		Eloquent\PaketKeahlian $paket) 
+		Eloquent\PaketKeahlian $paket,
+		Repositories\KelasRepository $kelasRepo) 
 	{
 		$this->bidang_keahlian = $bidang;
 		$this->program_keahlian = $program;
 		$this->paket_keahlian = $paket;
+		$this->kelasRepo = $kelasRepo;
 	}
 
 
@@ -120,6 +130,23 @@ class SelectBoxGenerator
 		}
 
 		return $selectbox;
+	}
+
+
+	/**
+	 * Generate Kelas contains siswa selectbox feed
+	 * 
+	 * @return array 
+	 */
+	public function generateKelasContainsSiswa()
+	{
+		$selectBox = [];
+
+		foreach($this->kelasRepo->getKelasContainsSiswa() as $kelas) {
+			$selectBox[] = ['value' => $kelas->id, 'text' => $kelas->nama_kelas];
+		}
+
+		return $selectBox;
 	}
 	
 }

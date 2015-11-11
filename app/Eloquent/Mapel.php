@@ -68,13 +68,24 @@ class Mapel extends Model
 
 
     /**
-     * BelongsToMany Relation to: App\Eloquent\KompetensiDasar
+     * HasMany Relation to: App\Eloquent\KompetensiDasar
      * 
      * @return mixed
      */
     public function kompetensiDasar()
     {
         return $this->hasMany(KompetensiDasar::class, 'mapel_id');
+    }
+
+
+    /**
+     * HasMany Relation to: App\Eloquent\NilaiPengetahuan
+     * 
+     * @return mixed
+     */
+    public function nilaiPengetahuan()
+    {
+        return $this->hasMany(NilaiPengetahuan::class, 'mapel_id');
     }
 
 }

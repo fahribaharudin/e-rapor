@@ -55,4 +55,16 @@ class SiswaRepository extends Repository
 
 		return $siswa;
 	}
+
+
+	/**
+	 * Get one siswa from database
+	 * 
+	 * @param  integer $siswa_id 
+	 * @return mixed           
+	 */
+	public function getOne($siswa_id)
+	{
+		return $this->siswa->find($siswa_id);
+	}
 }

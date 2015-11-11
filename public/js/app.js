@@ -48,7 +48,52 @@ var BidangDropdown = {
 
 module.exports = BidangDropdown;
 
-},{"./ProgramDropdown":5}],2:[function(require,module,exports){
+},{"./ProgramDropdown":7}],2:[function(require,module,exports){
+'use strict';
+
+var SemesterDropDown = require('./SemesterDropDown');
+
+var KelasDropDown = {
+	options: [],
+	init: function init() {
+		this.options = [{ value: 'null', text: 'Pilih Kelas :' }];
+		this.cacheDom();
+		this.loadDataFromServer();
+	},
+	cacheDom: function cacheDom() {
+		this.$el = $('#NilaiPengetahuanNavigation');
+		this.$selectBox = this.$el.find('#KelasDropdown');
+		this.$selectBox.on('change', this.handleChangeEvent);
+	},
+	loadDataFromServer: function loadDataFromServer() {
+		$.ajax({
+			url: basePath + '/admin/nilai-pengetahuan/dropdown/kelas',
+			success: (function (data) {
+				data.forEach((function (data) {
+					this.options.push(data);
+				}).bind(this));
+
+				this.render();
+			}).bind(this)
+		});
+	},
+	render: function render() {
+		var html = '';
+		this.options.forEach(function (option) {
+			html = html + '<option value="' + option.value + '">' + option.text + '</option>';
+		});
+		this.$selectBox.html(html);
+	},
+	handleChangeEvent: function handleChangeEvent(evt) {
+		if (evt.currentTarget.value != 'null') {
+			SemesterDropDown.init(evt.currentTarget.value);
+		}
+	}
+};
+
+module.exports = KelasDropDown;
+
+},{"./SemesterDropDown":8}],3:[function(require,module,exports){
 'use strict';
 
 var ShowButton = require('./ShowButton');
@@ -102,7 +147,7 @@ var MapelDropdown = {
 
 module.exports = MapelDropdown;
 
-},{"./ShowButton":6}],3:[function(require,module,exports){
+},{"./ShowButton":9}],4:[function(require,module,exports){
 'use strict';
 
 var MapelEditForm = {
@@ -138,7 +183,62 @@ var MapelEditForm = {
 
 module.exports = MapelEditForm;
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
+'use strict';
+
+var ShowNilaiPengetahuanButton = require('./ShowNilaiPengetahuanButton');
+
+var MapelFromKelasDropDown = {
+	kelas_id: '',
+	semester: '',
+	options: [],
+	init: function init(kelas_id, semester) {
+		this.kelas_id = kelas_id;
+		this.semester = semester;
+		this.options = [];
+		this.cacheDom();
+		this.loadDataFromServer();
+	},
+	cacheDom: function cacheDom() {
+		this.$selectBox = $('#MapelDropdown');
+		this.$selectBox.on('change', (function (evt) {
+			this.handleChengeEvent(evt);
+		}).bind(this));
+	},
+	loadDataFromServer: function loadDataFromServer() {
+		$.ajax({
+			url: basePath + '/admin/nilai-pengetahuan/dropdown/kelas/' + this.kelas_id + '/semester/' + this.semester + '/mapel',
+			success: (function (data) {
+				data.forEach((function (data) {
+					this.options.push(data);
+				}).bind(this));
+
+				this.render();
+			}).bind(this)
+		});
+	},
+	render: function render() {
+		var html = '';
+		this.options.push({ value: 'null', text: 'Pilih Mapel :', selected: true });
+		this.options.forEach(function (option) {
+			var selected = option.selected ? 'selected' : '';
+			html = html + '<option value="' + option.value + '" ' + selected + '>' + option.text + '</option>';
+		});
+		this.options = [];
+
+		this.$selectBox.html(html);
+		this.$selectBox.show();
+	},
+	handleChengeEvent: function handleChengeEvent(evt) {
+		if (evt.currentTarget.value != 'null') {
+			ShowNilaiPengetahuanButton.init(evt.currentTarget.value, this.kelas_id, this.semester);
+		}
+	}
+};
+
+module.exports = MapelFromKelasDropDown;
+
+},{"./ShowNilaiPengetahuanButton":10}],6:[function(require,module,exports){
 'use strict';
 
 var ShowButton = require('./ShowButton');
@@ -193,7 +293,7 @@ var PaketDropdown = {
 
 module.exports = PaketDropdown;
 
-},{"./ShowButton":6}],5:[function(require,module,exports){
+},{"./ShowButton":9}],7:[function(require,module,exports){
 'use strict';
 
 var PaketDropdown = require('./PaketDropdown');
@@ -248,7 +348,57 @@ var ProgramDropdown = {
 
 module.exports = ProgramDropdown;
 
-},{"./PaketDropdown":4}],6:[function(require,module,exports){
+},{"./PaketDropdown":6}],8:[function(require,module,exports){
+'use strict';
+
+var MapelFromKelasDropDown = require('./MapelFromKelasDropDown');
+
+var SemesterDropDown = {
+	kelas_id: '',
+	options: [],
+	init: function init(kelas_id) {
+		this.kelas_id = kelas_id;
+		this.options = [{ value: 'null', text: 'Pilih Semester :' }];
+		this.cacheDom();
+		this.loadDataFromServer();
+	},
+	cacheDom: function cacheDom() {
+		this.$selectBox = $('#SemesterDropdown');
+		this.$selectBox.on('change', (function (evt) {
+			this.handleChangeEvent(evt);
+		}).bind(this));
+	},
+	loadDataFromServer: function loadDataFromServer() {
+		$.ajax({
+			url: basePath + '/admin/nilai-pengetahuan/dropdown/kelas/' + this.kelas_id + '/semester',
+			success: (function (data) {
+				data.forEach((function (data) {
+					this.options.push(data);
+				}).bind(this));
+
+				this.render();
+			}).bind(this)
+		});
+	},
+	render: function render() {
+		var html = '';
+		this.options.forEach(function (option) {
+			html = html + '<option value="' + option.value + '">' + option.text + '</option>';
+		});
+
+		this.$selectBox.html(html);
+		this.$selectBox.show();
+	},
+	handleChangeEvent: function handleChangeEvent(evt) {
+		if (evt.currentTarget.value != 0) {
+			MapelFromKelasDropDown.init(this.kelas_id, evt.currentTarget.value);
+		}
+	}
+};
+
+module.exports = SemesterDropDown;
+
+},{"./MapelFromKelasDropDown":5}],9:[function(require,module,exports){
 /**
  * ShowButton Module
  * @type {ShowButton}
@@ -274,7 +424,28 @@ var ShowButton = {
 
 module.exports = ShowButton;
 
-},{}],7:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+'use strict';
+
+var ShowNilaiPengetahuanButton = {
+	path: '',
+	init: function init(mapel_id, kelas_id, semester) {
+		this.path = basePath + '/admin/mapel/' + mapel_id + '/kelas/' + kelas_id + '/semester/' + semester + '/nilai-pengetahuan/';
+		this.cacheDom();
+		this.render();
+	},
+	cacheDom: function cacheDom() {
+		this.$button = $('#ShowNilaiPengetahuanButton');
+	},
+	render: function render() {
+		var html = '<a href="' + this.path + '" class="btn btn-primary">Tampilkan</a>';
+		this.$button.html(html);
+	}
+};
+
+module.exports = ShowNilaiPengetahuanButton;
+
+},{}],11:[function(require,module,exports){
 'use strict';
 
 $(document).ready(function () {
@@ -294,7 +465,10 @@ $(document).ready(function () {
 	} else if ($('#MapelEdit').length != 0) {
 		var MapelEditForm = require('./MapelEditForm');
 		MapelEditForm.init();
+	} else if ($('#NilaiPengetahuanIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		KelasDropDown.init();
 	}
 });
 
-},{"./BidangDropdown":1,"./MapelDropdown":2,"./MapelEditForm":3,"./PaketDropdown":4}]},{},[7]);
+},{"./BidangDropdown":1,"./KelasDropDown":2,"./MapelDropdown":3,"./MapelEditForm":4,"./PaketDropdown":6}]},{},[11]);

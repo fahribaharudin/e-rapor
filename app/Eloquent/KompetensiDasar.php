@@ -38,4 +38,9 @@ class KompetensiDasar extends Model
     {
     	return $this->belongsTo(Mapel::class, 'mapel_id');
     }
+
+    public function nilaiPengetahuan()
+    {
+        return $this->hasMany(NilaiPengetahuan::class, 'kompetensi_id');
+    }
 }
