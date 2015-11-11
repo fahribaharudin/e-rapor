@@ -44,6 +44,19 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/nilai-pengetahuan', ['as' => 'admin.nilai-pengetahuan.index-byMapel', 'uses' => 'Admin\NilaiPengetahuanController@indexByMapel']);
 		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-pengetahuan/edit', ['as' => 'admin.nilai-pengetahuan.edit', 'uses' => 'Admin\NilaiPengetahuanController@edit']);
 		Route::put('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-pengetahuan', ['as' => 'admin.nilai-pengetahuan.update', 'uses' => 'Admin\NilaiPengetahuanController@update']);
+
+		# Admin nilai-keterampilan routes...
+		Route::resource('/admin/nilai-keterampilan', 'Admin\NilaiKeterampilanController', ['only' => ['index']]); 
+		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/nilai-keterampilan', ['as' => 'admin.nilai-keterampilan.index-byMapel', 'uses' => 'Admin\NilaiKeterampilanController@indexByMapel']);
+		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-keterampilan/edit', ['as' => 'admin.nilai-keterampilan.edit', 'uses' => 'Admin\NilaiKeterampilanController@edit']);
+		Route::put('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-keterampilan', ['as' => 'admin.nilai-keterampilan.update', 'uses' => 'Admin\NilaiKeterampilanController@update']);
+
+
+		# Admin nilai-sikap routes...
+		Route::resource('/admin/nilai-sikap', 'Admin\NilaiSikapController', ['only' => ['index']]); 
+		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/nilai-sikap', ['as' => 'admin.nilai-sikap.index-byMapel', 'uses' => 'Admin\NilaiSikapController@indexByMapel']);
+		Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-sikap/edit', ['as' => 'admin.nilai-sikap.edit', 'uses' => 'Admin\NilaiSikapController@edit']);
+		Route::put('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-sikap', ['as' => 'admin.nilai-sikap.update', 'uses' => 'Admin\NilaiSikapController@update']);
 	});
 
 	Route::get('/guru', ['as' => 'guru', function() { return 'guru'; }]);

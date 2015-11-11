@@ -22,4 +22,28 @@ $(document).ready(function() {
 		var KelasDropDown = require('./KelasDropDown');
 		KelasDropDown.init();
 	}
+	else if ($('#NilaiKeterampilanIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		var MapelFromKelasDropDown = require('./MapelFromKelasDropDown');
+		MapelFromKelasDropDown.handleChengeEvent = function(evt) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiKeterampilanButton = require('./ShowNilaiKeterampilanButton');
+				ShowNilaiKeterampilanButton.init(evt.currentTarget.value, this.kelas_id, this.semester);
+			}
+		}
+
+		KelasDropDown.init();
+	}
+	else if ($('#NilaiSikapIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		var MapelFromKelasDropDown = require('./MapelFromKelasDropDown');
+		MapelFromKelasDropDown.handleChengeEvent = function(evt) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiSikapButton = require('./ShowNilaiSikapButton');
+				ShowNilaiSikapButton.init(evt.currentTarget.value, this.kelas_id, this.semester);
+			}
+		}
+
+		KelasDropDown.init();
+	}
 });

@@ -15,8 +15,7 @@ var MapelDropdown = {
 		this.loadDataFromServer();
 	},
 	cacheDom: function() {
-		this.$el = $('#mapelSelectorModule');
-		this.$selectBox = this.$el.find('#mapelDropdown');
+		this.$selectBox = $('#mapelDropdown');
 		this.$selectBox.on('change', this.handleChangeEvent);
 	},
 	loadDataFromServer: function() {

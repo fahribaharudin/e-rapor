@@ -3,4 +3,11 @@ Nilai Pengetahuan:
  ✔ Show nilai pengetahuan (on route: admin.nilai-pengetahuan.index-byMapel) @done (15-11-11 19:18)
 
  Nilai Keterampilan:
-  ☐ CRUD!
+  ✔ CRUD - update nilai keterampilan @done (15-11-11 23:14)
+
+ Nilai Sikap:
+  ✔ CRUD - update nilai sikap @done (15-11-12 00:46)
+
+  Raport -> The shitest thing!:
+   ☐ Lihat Raport
+   ☐ Cetak Raport

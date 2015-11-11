@@ -61,8 +61,7 @@ var KelasDropDown = {
 		this.loadDataFromServer();
 	},
 	cacheDom: function cacheDom() {
-		this.$el = $('#NilaiPengetahuanNavigation');
-		this.$selectBox = this.$el.find('#KelasDropdown');
+		this.$selectBox = $('#KelasDropdown');
 		this.$selectBox.on('change', this.handleChangeEvent);
 	},
 	loadDataFromServer: function loadDataFromServer() {
@@ -113,8 +112,7 @@ var MapelDropdown = {
 		this.loadDataFromServer();
 	},
 	cacheDom: function cacheDom() {
-		this.$el = $('#mapelSelectorModule');
-		this.$selectBox = this.$el.find('#mapelDropdown');
+		this.$selectBox = $('#mapelDropdown');
 		this.$selectBox.on('change', this.handleChangeEvent);
 	},
 	loadDataFromServer: function loadDataFromServer() {
@@ -238,7 +236,7 @@ var MapelFromKelasDropDown = {
 
 module.exports = MapelFromKelasDropDown;
 
-},{"./ShowNilaiPengetahuanButton":10}],6:[function(require,module,exports){
+},{"./ShowNilaiPengetahuanButton":11}],6:[function(require,module,exports){
 'use strict';
 
 var ShowButton = require('./ShowButton');
@@ -427,6 +425,27 @@ module.exports = ShowButton;
 },{}],10:[function(require,module,exports){
 'use strict';
 
+var ShowNilaiKeterampilanButton = {
+	path: '',
+	init: function init(mapel_id, kelas_id, semester) {
+		this.path = basePath + '/admin/mapel/' + mapel_id + '/kelas/' + kelas_id + '/semester/' + semester + '/nilai-keterampilan/';
+		this.cacheDom();
+		this.render();
+	},
+	cacheDom: function cacheDom() {
+		this.$button = $('#ShowNilaiKeterampilan');
+	},
+	render: function render() {
+		var html = '<a href="' + this.path + '" class="btn btn-primary">Tampilkan</a>';
+		this.$button.html(html);
+	}
+};
+
+module.exports = ShowNilaiKeterampilanButton;
+
+},{}],11:[function(require,module,exports){
+'use strict';
+
 var ShowNilaiPengetahuanButton = {
 	path: '',
 	init: function init(mapel_id, kelas_id, semester) {
@@ -445,7 +464,28 @@ var ShowNilaiPengetahuanButton = {
 
 module.exports = ShowNilaiPengetahuanButton;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
+'use strict';
+
+var ShowNilaiSikapButton = {
+	path: '',
+	init: function init(mapel_id, kelas_id, semester) {
+		this.path = basePath + '/admin/mapel/' + mapel_id + '/kelas/' + kelas_id + '/semester/' + semester + '/nilai-sikap/';
+		this.cacheDom();
+		this.render();
+	},
+	cacheDom: function cacheDom() {
+		this.$button = $('#ShowNilaiKeterampilan');
+	},
+	render: function render() {
+		var html = '<a href="' + this.path + '" class="btn btn-primary">Tampilkan</a>';
+		this.$button.html(html);
+	}
+};
+
+module.exports = ShowNilaiSikapButton;
+
+},{}],13:[function(require,module,exports){
 'use strict';
 
 $(document).ready(function () {
@@ -468,7 +508,29 @@ $(document).ready(function () {
 	} else if ($('#NilaiPengetahuanIndex').length != 0) {
 		var KelasDropDown = require('./KelasDropDown');
 		KelasDropDown.init();
+	} else if ($('#NilaiKeterampilanIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		var MapelFromKelasDropDown = require('./MapelFromKelasDropDown');
+		MapelFromKelasDropDown.handleChengeEvent = function (evt) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiKeterampilanButton = require('./ShowNilaiKeterampilanButton');
+				ShowNilaiKeterampilanButton.init(evt.currentTarget.value, this.kelas_id, this.semester);
+			}
+		};
+
+		KelasDropDown.init();
+	} else if ($('#NilaiSikapIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		var MapelFromKelasDropDown = require('./MapelFromKelasDropDown');
+		MapelFromKelasDropDown.handleChengeEvent = function (evt) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiSikapButton = require('./ShowNilaiSikapButton');
+				ShowNilaiSikapButton.init(evt.currentTarget.value, this.kelas_id, this.semester);
+			}
+		};
+
+		KelasDropDown.init();
 	}
 });
 
-},{"./BidangDropdown":1,"./KelasDropDown":2,"./MapelDropdown":3,"./MapelEditForm":4,"./PaketDropdown":6}]},{},[11]);
+},{"./BidangDropdown":1,"./KelasDropDown":2,"./MapelDropdown":3,"./MapelEditForm":4,"./MapelFromKelasDropDown":5,"./PaketDropdown":6,"./ShowNilaiKeterampilanButton":10,"./ShowNilaiSikapButton":12}]},{},[13]);

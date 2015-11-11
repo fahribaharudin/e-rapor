@@ -8,8 +8,7 @@ var KelasDropDown = {
 		this.loadDataFromServer();
 	},
 	cacheDom: function() {
-		this.$el = $('#NilaiPengetahuanNavigation');
-		this.$selectBox = this.$el.find('#KelasDropdown');
+		this.$selectBox = $('#KelasDropdown');
 		this.$selectBox.on('change', this.handleChangeEvent);
 	},
 	loadDataFromServer: function() {
