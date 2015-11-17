@@ -46,4 +46,16 @@ $(document).ready(function() {
 
 		KelasDropDown.init();
 	}
+	else if ($('#RaportIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		var SemesterDropDown = require('./SemesterDropDown');
+		SemesterDropDown.handleChangeEvent = function(evt) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowSiswaOnRaportButton = require('./ShowSiswaOnRaportButton');
+				ShowSiswaOnRaportButton.init(this.kelas_id, evt.currentTarget.value);
+			}
+		} 
+
+		KelasDropDown.init();
+	}
 });

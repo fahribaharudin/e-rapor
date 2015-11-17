@@ -488,6 +488,27 @@ module.exports = ShowNilaiSikapButton;
 },{}],13:[function(require,module,exports){
 'use strict';
 
+var ShowSiswaOnRaportButton = {
+	path: '',
+	init: function init(kelas_id, semester) {
+		this.path = basePath + '/admin/raport/kelas/' + kelas_id + '/semester/' + semester;
+		this.cacheDom();
+		this.render();
+	},
+	cacheDom: function cacheDom() {
+		this.$showButton = $('#ShowSiswaListFromRaportButtonn');
+	},
+	render: function render() {
+		var html = '<a href="' + this.path + '" class="btn btn-primary">Tampilkan</a>';
+		this.$showButton.html(html);
+	}
+};
+
+module.exports = ShowSiswaOnRaportButton;
+
+},{}],14:[function(require,module,exports){
+'use strict';
+
 $(document).ready(function () {
 	if ($('#MapelIndex').length != 0) {
 		var BidangDropdown = require('./BidangDropdown');
@@ -530,7 +551,18 @@ $(document).ready(function () {
 		};
 
 		KelasDropDown.init();
+	} else if ($('#RaportIndex').length != 0) {
+		var KelasDropDown = require('./KelasDropDown');
+		var SemesterDropDown = require('./SemesterDropDown');
+		SemesterDropDown.handleChangeEvent = function (evt) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowSiswaOnRaportButton = require('./ShowSiswaOnRaportButton');
+				ShowSiswaOnRaportButton.init(this.kelas_id, evt.currentTarget.value);
+			}
+		};
+
+		KelasDropDown.init();
 	}
 });
 
-},{"./BidangDropdown":1,"./KelasDropDown":2,"./MapelDropdown":3,"./MapelEditForm":4,"./MapelFromKelasDropDown":5,"./PaketDropdown":6,"./ShowNilaiKeterampilanButton":10,"./ShowNilaiSikapButton":12}]},{},[13]);
+},{"./BidangDropdown":1,"./KelasDropDown":2,"./MapelDropdown":3,"./MapelEditForm":4,"./MapelFromKelasDropDown":5,"./PaketDropdown":6,"./SemesterDropDown":8,"./ShowNilaiKeterampilanButton":10,"./ShowNilaiSikapButton":12,"./ShowSiswaOnRaportButton":13}]},{},[14]);

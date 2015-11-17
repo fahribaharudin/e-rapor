@@ -9,5 +9,10 @@ Nilai Pengetahuan:
   ✔ CRUD - update nilai sikap @done (15-11-12 00:46)
 
   Raport -> The shitest thing!:
-   ☐ Lihat Raport
-   ☐ Cetak Raport
+  ✔ Lihat Raport @done (15-11-16 23:59)
+  ☐ Cetak Raport
+
+Import Data (Admin):
+  ☐ Import Data Guru
+  ☐ Import Data Kelas
+  ☐ Import Data Siswa
