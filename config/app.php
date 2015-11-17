@@ -138,6 +138,12 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
+         * Additional providers...
+         */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
+
+        /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
@@ -194,6 +200,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
 
+
+        'Excel'     => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

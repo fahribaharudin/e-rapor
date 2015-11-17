@@ -5,31 +5,28 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Admin\ControllerTrait\NilaiDropDownFeed as DropDownFeed;
 use App\Repositories\MapelRepository;
 use App\Repositories\KelasRepository;
 use App\Repositories\SiswaRepository;
 use App\Repositories\NilaiRepository;
 
-class NilaiPengetahuanController extends Controller
+class NilaiKeterampilanController extends Controller
 {
-    
-	use DropDownFeed;
-    
-    /**
-     * Handle (GET) Request: from /admin/nilai-pengetahuan
-     * 
-     * @return Response
-     */
+	
+	/**
+	 * Handle (GET) Request from: /admin/nilai-keterampilan
+	 * 
+	 * @return Response 
+	 */
     public function index()
     {
-    	return view('admin.nilai-pengetahuan.index');
+    	return view('admin.nilai-keterampilan.index');
     }
 
-
+    
     /**
      * Handle (GET) Request 
-     * from: /admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/nilai-pengetahuan/
+     * from: /admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/nilai-keterampilan/
      * 
      * @param  integer          $mapel_id  
      * @param  integer          $kelas_id  
@@ -38,21 +35,22 @@ class NilaiPengetahuanController extends Controller
      * @param  KelasRepository $kelasRepo 
      * @return Response                     
      */
+
     public function indexByMapel($mapel_id, $kelas_id, $semester, MapelRepository $mapelRepo, KelasRepository $kelasRepo)
     {
-        $mapel = $mapelRepo->getOne($mapel_id);
+    	$mapel = $mapelRepo->getOne($mapel_id);
         $kelas = $kelasRepo->getOne($kelas_id);
         $kelas->siswa_kelas = $kelas->siswa;
         $kelas->semester = $semester;
         $nilaiFormater = new \App\Services\NilaiFormater;
 
-        return view('admin.nilai-pengetahuan.index-byMapel')->with(compact('mapel', 'kelas', 'nilaiFormater'));
+    	return view('admin.nilai-keterampilan.index-byMapel')->with(compact('mapel', 'kelas', 'nilaiFormater'));
     }
 
 
     /**
      * Handle (GET) Request 
-     * from: /admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-pengetahuan/edit
+     * from: /admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-keterampilan/edit
      * 
      * @param  integer          $mapel_id  
      * @param  integer          $kelas_id  
@@ -71,13 +69,13 @@ class NilaiPengetahuanController extends Controller
         $siswa->kelas = $kelasRepo->getOne($kelas_id);
         $siswa->semester = $semester;
 
-        return view('admin.nilai-pengetahuan.edit')->with(compact('mapel', 'siswa'));
+        return view('admin.nilai-keterampilan.edit')->with(compact('mapel', 'siswa'));
     }
 
 
     /**
-     * Handle (PUT) Request 
-     * from: /admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-pengetahuan
+     * Handle (GET) Request
+     * from: /admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}/nilai-keterampilan
      * 
      * @param  Request         $request   
      * @param  NilaiRepository $nilaiRepo 
@@ -88,7 +86,7 @@ class NilaiPengetahuanController extends Controller
     {
         $mapel = $mapelRepo->getOne($request->get('mapel_id'));
         $nilai = [
-            'pengetahuan' => [
+            'keterampilan' => [
                 'siswa_id' => $request->get('siswa_id'), 
                 'mapel_id' => $mapel->id,
                 'semester' => $request->get('semester'),
@@ -99,21 +97,27 @@ class NilaiPengetahuanController extends Controller
         
         // Formating nilai from request to array
         foreach ($mapel->kompetensiDasar()->where('semester', '=', $request->get('semester'))->get() as $kompetensi_dasar) {
+            if ($request->has('nilai_praktek_kd_' . $i)) {
+                $nilai['keterampilan']['praktek']['kd_' . $i] = $request->get('nilai_praktek_kd_' . $i);
+            }
+            if ($request->has('nilai_project_kd_' . $i)) {
+                $nilai['keterampilan']['project']['kd_' . $i] = $request->get('nilai_project_kd_' . $i);
+            }
+            if ($request->has('nilai_produk_kd_' . $i)) {
+                $nilai['keterampilan']['produk']['kd_' . $i] = $request->get('nilai_produk_kd_' . $i);
+            }
+            if ($request->has('nilai_portofolio_kd_' . $i)) {
+                $nilai['keterampilan']['portofolio']['kd_' . $i] = $request->get('nilai_portofolio_kd_' . $i);
+            }
             if ($request->has('nilai_tertulis_kd_' . $i)) {
-                $nilai['pengetahuan']['tertulis']['kd_' . $i] = $request->get('nilai_tertulis_kd_' . $i);
-            }
-            if ($request->has('nilai_observasi_kd_' . $i)) {
-                $nilai['pengetahuan']['observasi']['kd_' . $i] = $request->get('nilai_observasi_kd_' . $i);
-            }
-            if ($request->has('nilai_penugasan_kd_' . $i)) {
-                $nilai['pengetahuan']['penugasan']['kd_' . $i] = $request->get('nilai_penugasan_kd_' . $i);
+                $nilai['keterampilan']['tertulis']['kd_' . $i] = $request->get('nilai_tertulis_kd_' . $i);
             }
             $i++;
         }
 
         // Updating nilai on Repo
         if ($nilaiRepo->update($nilai) != false) {
-            return redirect()->route('admin.nilai-pengetahuan.index-byMapel', [
+            return redirect()->route('admin.nilai-keterampilan.index-byMapel', [
                 $request->get('mapel_id'),
                 $request->get('kelas_id'),
                 $request->get('semester'),

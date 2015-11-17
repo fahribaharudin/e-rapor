@@ -1,4 +1,3 @@
-
 <hr>
 <div class="table-responsive">
 	<table class="table table-bordered">
@@ -71,7 +70,7 @@
 				<td colspan="5">
 					<span class="pull-right">
 						<button type="submit" class="btn btn-primary">SIMPAN</button>
-						<button class="btn btn-warning">BATAL</button>
+						<a class="btn btn-warning" href="{{ route('admin.nilai-keterampilan.index-byMapel', [$mapel->id, $siswa->kelas->id, $siswa->semester]) }}">BATAL</a>
 					</span>
 				</td>
 			</tr>

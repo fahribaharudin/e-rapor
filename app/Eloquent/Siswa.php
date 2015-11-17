@@ -44,6 +44,7 @@ class Siswa extends Model
         return $this->belongsTo(PaketKeahlian::class, 'paket_id', 'id');
     }
 
+
     /**
      * HasMany Relation to: App\Eloquent\Kelas
      * 

@@ -32,6 +32,15 @@
 		            	<li><a href="{{ route('admin.kompetensi-dasar.index') }}">Data Kompetensi Dasar</a></li>
 		            	<li class="divider"></li>
 		            	<li><a href="{{ route('admin.nilai-pengetahuan.index') }}">Nilai Pengetahuan</a></li>
+		            	<li><a href="{{ route('admin.nilai-keterampilan.index') }}">Nilai Keterampilan</a></li>
+		            	<li><a href="{{ route('admin.nilai-sikap.index') }}">Nilai Sikap</a></li>
+		          	</ul>
+		        </li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Rapor <b class="caret"></b></a>
+		          	<ul class="dropdown-menu">
+		            	<li><a href="{{ route('admin.raport.index') }}">Lihat Rapor</a></li>
+		            	<li><a href="#">Cetak Rapor</a></li>
 		          	</ul>
 		        </li>
 			</ul>

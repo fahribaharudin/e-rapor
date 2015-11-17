@@ -88,4 +88,26 @@ class Mapel extends Model
         return $this->hasMany(NilaiPengetahuan::class, 'mapel_id');
     }
 
+
+    /**
+     * HasMany Relation to: App\Eloquent\NilaiKeterampilan
+     * 
+     * @return mixed
+     */
+    public function nilaiKeterampilan()
+    {
+        return $this->hasMany(NilaiKeterampilan::class, 'mapel_id');
+    }
+
+
+    /**
+     * HasMany Relation to: App\Eloquent\NilaiSikap
+     * 
+     * @return mixed
+     */
+    public function nilaiSikap()
+    {
+        return $this->hasMany(NilaiSikap::class, 'mapel_id');
+    }
+
 }
