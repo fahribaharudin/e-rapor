@@ -54,7 +54,7 @@ class SiswaAndKelasSeeder extends Seeder
 
 		DB::table('siswa_perkelas')->truncate();
 
-		$this->faker = $faker;
+		$this->faker = \Faker\Factory::create('id_ID');
 	}
 
 

@@ -1,18 +1,26 @@
-@extends('_layout')
+@extends('admin._layout')
 
 @section('content')
 	
 	@include('admin._navbar')
-		
-	<div class="container-wide">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="page-header">
-					<h2>SELAMAT DATANG</h2>
-				</div>
-				<P>Anda login sebagai administrator</P>
-			</div>
-		</div>
-	</div>
+	
+	<!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">   
+                <div class="page-header">
+                    <h1>Administrator Dashboard <small>Selamat datang admin!</small></h1>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>
+                            Anda login sebagai administrator.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
 
 @endsection

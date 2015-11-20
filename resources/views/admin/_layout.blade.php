@@ -17,7 +17,26 @@
 </head>
 <body>
 	
-	@yield('content')	
+	<div id="wrapper" class="{{ isset($toggled) ? 'toggled' : '' }}">
+		
+		<!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#">Admin - Control Panel</a></li>
+                <li><a href="{{ route('admin') }}">Dashboard</a></li>
+                <li><a href="#">Profile Sekolah</a></li>
+                <li><a href="#">Data Akademik</a></li>
+                <li><a href="#">Database</a></li>
+                <li><a href="#">Pengaturan</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+		@yield('content')
+	
+	</div>
 	
 	<!-- Vendor Scripts -->
 	<script type="text/javascript" src="{{ asset('js/vendor/jquery.min.js') }}"></script>

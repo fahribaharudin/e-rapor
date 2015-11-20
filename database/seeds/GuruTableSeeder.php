@@ -27,7 +27,7 @@ class GuruTableSeeder extends Seeder
 	 */
 	public function __construct(Generator $faker, Guru $guru)
 	{
-		$this->faker = $faker;
+		$this->faker = \Faker\Factory::create('id_ID');
 		$this->guru = $guru;
 	}
 

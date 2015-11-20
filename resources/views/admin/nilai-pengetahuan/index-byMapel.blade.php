@@ -1,4 +1,4 @@
-@extends('_layout')
+@extends('admin._layout', ['toggled' => true])
 
 @section('style')
 	<style type="text/css">
@@ -15,11 +15,12 @@
 	
 	@include('admin._navbar')
 	
-	<div class="container-wide">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="page-header">
-					<h2>
+	<!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">   
+                <div class="page-header">
+					<h1>
 						Data Nilai Pengetahuan 
 						<small>
 							Mapel: {{ $mapel->child->nama_mapel }} 
@@ -27,15 +28,16 @@
 							tingkat: {{ $kelas->tingkat_kelas }} - semester {{ $kelas->semester }})
 							<a href="{{ route('admin.nilai-pengetahuan.index') }}" class="btn btn-success btn-xs">Ganti</a>
 						</small>
-					</h2>
-				</div>
+					</h1>
+                </div>
 				<ol class="breadcrumb">
 					<li><a href="{{ route('admin') }}">Administrator Dashboard</a></li>
 					<li><a href="{{ route('admin.nilai-pengetahuan.index') }}">Data Nilai Pengetahuan</a></li>
 					<li class="active">Mapel: {{ $mapel->child->nama_mapel }}</li>
 				</ol>
-				<hr>
 				<div class="table-responsive">
+					<div class="panel panel-default">
+						
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -64,9 +66,11 @@
 						@include('admin.nilai-pengetahuan._tbody-index-byMapel')
 					
 					</table>
+					</div>
 				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
 
 @endsection

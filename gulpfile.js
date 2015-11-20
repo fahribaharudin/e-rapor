@@ -20,5 +20,7 @@ elixir(function(mix) {
     mix.copy('bower_components/datatables/media/js/jquery.dataTables.min.js', 'public/js/vendor');
     mix.copy('bower_components/datatables/media/js/dataTables.bootstrap.min.js', 'public/js/vendor');
 
+    mix.sass('app.scss');
+
     mix.browserify('app.js');
 });

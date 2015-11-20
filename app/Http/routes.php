@@ -61,6 +61,12 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('/admin/raport/search', ['as' => 'admin.raport.index', 'uses' => 'Admin\RaporController@index']);
 		Route::get('/admin/raport/kelas/{kelas_id}/semester/{semester}', ['as' => 'admin.raport.indexByKelas', 'uses' => 'Admin\RaporController@indexByKelas']);
 		Route::get('/admin/raport/kelas/{kelas_id}/semester/{semester}/siswa/{siswa_id}', ['as' => 'admin.raport.indexBySiswa', 'uses' => 'Admin\RaporController@indexBySiswa']);
+		
+		# Admin import / export data routes...
+		Route::get('/admin/data/import', ['as' => 'admin.data.import', 'uses' => 'Admin\DataController@index']);
+		Route::get('/admin/data/import/draft-guru', ['as' => 'admin.data.export.guru', 'uses' => 'Admin\DataController@exportGuru']);
+		Route::post('/admin/data/import/guru', ['as' => 'admin.data.import.guru', 'uses' => 'Admin\DataController@importGuru']);
+
 	});
 
 	Route::get('/guru', ['as' => 'guru', function() { return 'guru'; }]);
@@ -86,4 +92,12 @@ Route::group(['middleware' => 'auth'], function() {
 				break;
 		}
 	}]);
+});
+
+Route::get('/test', function(\App\Services\Excel\GuruListImport $export) {
+	return $export->handleImport();
+});
+
+Route::get('/template', function() {
+	return view('template');
 });

@@ -4,18 +4,19 @@
 	
 	@include('_navbar')
 
-	<div class="container-wide">
+	<div class="container">
+
 		<div class="panel panel-default text-center">
 			<div class="panel-body">
 				<div class="page-header">
-					<h2>E-RAPOR SMKN 1 WONOSOBO</h2>
+					<h1>E-RAPOR SMKN 1 WONOSOBO</h1>
 				</div>
-				<p>
+				<p class="text-info">
 					e-Rapor merupakan aplikasi untuk menyajikan laporan pencapaian kompetensi peserta didik Sekolah Menengah Kejuruan (SMK). 
 				</p>
 				<br>
 				<p>
-					<a href="{{ route('auth.login') }}" class="btn btn-default">Login Disini</a>
+					<a href="{{ route('auth.login') }}" class="btn btn-primary">Login Sistem</a>
 				</p>
 				<br>
 				<p>

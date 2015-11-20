@@ -1,4 +1,4 @@
-@extends('_layout')
+@extends('admin._layout', ['toggled' => true])
 
 @section('style')
 	<style type="text/css">
@@ -19,24 +19,26 @@
 	
 	@include('admin._navbar')
 
-	<div class="container-wide">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="page-header">
-					<h2>
+	
+	<!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">   
+                <div class="page-header">
+					<h1>
 						DATA MATA PELAJARAN 
 						<small class="text-muted">
 							(Paket Keahlian: {{ $mapelByPaket->paket_keahlian->nama }}, 
 							<a href="{{ route('admin.mapel.index') }}" class="btn btn-success btn-xs">Ganti</a>)
 						</small>
-					</h2>
-				</div>
+					</h1>
+                </div>
 				<ol class="breadcrumb">
 					<li><a href="{{ route('admin') }}">Administrator Dashboard</a></li>
 					<li><a href="{{ route('admin.mapel.index') }}">Data Mata Pelajaran</a></li>
 					<li class="active">{{ $mapelByPaket->paket_keahlian->nama }}</li>
 				</ol>
-				<hr>
+
 				<div class="table-responsive">
 					<table class="table table-bordered">
 						
@@ -122,8 +124,10 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
-		</div>
-	</div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
 	
 @endsection
