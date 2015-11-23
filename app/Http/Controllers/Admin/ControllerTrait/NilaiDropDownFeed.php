@@ -55,6 +55,7 @@ trait NilaiDropDownFeed
 	/**
 	 * Handle (GET) Ajax Request 
 	 * from: /admin/nilai-pengetahuan/dropdown/kelas/{kelas_id}/semester/{semester}/mapel
+	 * 
 	 * @param  integer                            $kelas_id  
 	 * @param  integer                            $semester  
 	 * @param  \App\Repositories\KelasRepository $kelasRepo 
@@ -67,9 +68,9 @@ trait NilaiDropDownFeed
 		$selectBox = [];
 		foreach ($kelas->paketKeahlian->mapel as $mapel) {
 			if (in_array($semester, explode(',', $mapel->semester))) {
-  				if (count($mapel->guru) != 0) {
+  				// if (count($mapel->guru) != 0) {
 					$selectBox[] = ['value' => $mapel->id, 'text' => $mapel->child->nama_mapel];
-  				}
+  				// }
 			}
 		}
 

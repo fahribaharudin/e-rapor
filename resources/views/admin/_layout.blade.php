@@ -28,8 +28,13 @@
                 <li><a href="#">Data Akademik</a></li>
                 <li><a href="#">Database</a></li>
                 <li><a href="#">Pengaturan</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Help</a></li>
+                @if (Auth::check())
+	                <li>
+	                	<a href="{{ route('auth.logout') }}">
+	                		Logout <small><span class="glyphicon glyphicon-log-out"></small></span>
+	                	</a>
+				@endif
+                </li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

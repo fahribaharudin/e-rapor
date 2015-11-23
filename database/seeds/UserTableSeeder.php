@@ -54,11 +54,12 @@ class UserTableSeeder extends Seeder
     {
         $users = [
         	['username' => 'admin', 'password' => 'password', 'level' => 'admin'],
-        	['username' => 'guru1', 'password' => 'password', 'level' => 'guru'],
-        	['username' => 'walas1', 'password' => 'password', 'level' => 'walas'],
+        	// ['username' => 'guru1', 'password' => 'password', 'level' => 'guru'],
+        	// ['username' => 'walas1', 'password' => 'password', 'level' => 'walas'],
         ];
 
-        $penduduk = array_merge($this->createAdmin(), $this->createGuru());
+        // $penduduk = array_merge($this->createAdmin(), $this->createGuru());
+        $penduduk = array_merge($this->createAdmin());
 
         $i = 0;
         foreach ($users as $user) {

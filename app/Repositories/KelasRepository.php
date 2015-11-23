@@ -12,7 +12,7 @@ class KelasRepository extends Repository
 	 * 
 	 * @var App\Eloquent\Kelas
 	 */
-	protected $kelas;
+	public $kelas;
 
 
 	/**

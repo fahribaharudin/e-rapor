@@ -143,7 +143,7 @@ class SelectBoxGenerator
 		$selectBox = [];
 
 		foreach($this->kelasRepo->getKelasContainsSiswa() as $kelas) {
-			$selectBox[] = ['value' => $kelas->id, 'text' => $kelas->nama_kelas];
+			$selectBox[] = ['value' => $kelas->id, 'text' => $kelas->nama_kelas . ' tingkat:' . $kelas->tingkat_kelas];
 		}
 
 		return $selectBox;

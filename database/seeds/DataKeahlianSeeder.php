@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Eloquent\BidangKeahlian, App\Eloquent\ProgramKeahlian, App\Eloquent\PaketKeahlian;
+use App\Eloquent;
 
 class DataKeahlianSeeder extends Seeder
 {

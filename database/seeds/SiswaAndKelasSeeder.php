@@ -42,7 +42,7 @@ class SiswaAndKelasSeeder extends Seeder
 	 * @param Siswa $siswa 
 	 * @param Kelas $kelas 
 	 */
-	public function __construct(Siswa $siswa, Kelas $kelas, PaketKeahlian $paket, Generator $faker)
+	public function __construct(Siswa $siswa, Kelas $kelas, PaketKeahlian $paket)
 	{
 		$this->siswa = $siswa;
 		$this->siswa->truncate();
@@ -66,7 +66,7 @@ class SiswaAndKelasSeeder extends Seeder
     public function run()
     {
         $this->createSiswa();
-        $this->craeteKelas();
+        $this->createKelas();
       	
       	// RPL-1 tingkat 1
       	$kelas1 = $this->kelas->find(19);
@@ -129,7 +129,7 @@ class SiswaAndKelasSeeder extends Seeder
      * 
      * @return array 
      */
-    public function craeteKelas()
+    public function createKelas()
     {
     	$kelas = [];
 
@@ -190,7 +190,7 @@ class SiswaAndKelasSeeder extends Seeder
 			for ($j=1; $j <= 3; $j++) { 
 				$kelas[] = $this->kelas->create([
 					'paket_id' => $data['paket_id'], 
-					'guru_id' => $guru_id++, 
+					'guru_id' => $guru_id++,
 					'nama_kelas' => $data['nama_kelas'] . '-' . $i, 
 					'tingkat_kelas' => $j
 				]);

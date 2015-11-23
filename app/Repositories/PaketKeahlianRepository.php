@@ -21,7 +21,7 @@ class PaketKeahlianRepository extends Repository
 	 * 
 	 * @var App\Eloquent\PaketKeahlian
 	 */
-	protected $paketKeahlian;
+	public $paketKeahlian;
 
 
 	/**

@@ -12,7 +12,7 @@ class SiswaRepository extends Repository
 	 * 
 	 * @var App\Eloquent\Siswa
 	 */
-	protected $siswa;
+	public $siswa;
 
 
 	/**

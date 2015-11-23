@@ -37,6 +37,12 @@
 								</tbody>
 							</table>
 						</div>
+						<hr>
+						<p>
+							<a href="{{ route('admin.users.create') }}" class="btn btn-success">
+								<b class="glyphicon glyphicon-plus"></b> Buat user baru
+							</a>
+						</p>
 					</div>
 				</div>
            	</div>

@@ -1,4 +1,4 @@
-@extends('admin._layout', ['toggled' => true])
+@extends('admin._layout')
 
 @section('style')
 	<style type="text/css">
@@ -29,6 +29,13 @@
 					<li><a href="{{ route('admin') }}">Administrator Dashboard</a></li>
 					<li class="active">Import & Download Data</li>
 				</ol>
+
+				@if (Session::has('message')) 
+					<div class="alert alert-success">
+						<p>{{ Session::get('message') }}</p>
+					</div>
+				@endif
+
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="table-responsive">
@@ -37,22 +44,31 @@
 									<tr>
 										<th>#</th>
 										<th>Keterangan</th>
-										<th>Draft Import Data (Download)</th>
+										<th>Backup / Export Data</th>
 										<th>Upload Data</th>
-										<th>Backup Data</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr>
 										<td colspan="5" class="text-info">
-											<strong>Data I: Guru & Siswa</strong>
+											<strong>Data I: Akademik</strong>
 										</td>
 									</tr>
 									<tr>
-										@include('admin.data-import-download._import-download-form', ['no' => 1, 'upload_path' => route('admin.data.import.guru'), 'title' => 'Data Guru', 'excel' => route('admin.data.export.guru')])
+										@include('admin.data-import-download._import-download-form', [
+											'no' => 1, 
+											'title' => 'Data Akademik', 
+											'export_path' => route('admin.data.export.akademik'), 
+											'upload_path' => route('admin.data.import.akademik')
+										])
 									</tr>
 									<tr>
-										@include('admin.data-import-download._import-download-form', ['no' => 2, 'upload_path' => '#', 'title' => 'Data Siswa Per Kelas', 'excel' => '#'])
+										@include('admin.data-import-download._import-download-form', [
+											'no' => 2, 
+											'title' => 'Data Siswa Per Kelas', 
+											'export_path' => route('admin.data.export.siswa'),
+											'upload_path' => route('admin.data.import.siswa'), 
+										]) 
 									</tr>
 									<tr>
 										<td colspan="5" class="text-info">
@@ -60,21 +76,12 @@
 										</td>
 									</tr>
 									<tr>
-										@include('admin.data-import-download._import-download-form', ['no' => 3, 'upload_path' => '#', 'title' => 'Mata Pelajaran dan Kompetensinya', 'excel' => '#'])
-									</tr>
-									<tr>
-										<td colspan="5" class="text-info">
-											<strong>Data III: Nilai Siswa Per Mata Pelajaran</strong>
-										</td>
-									</tr>
-									<tr>
-										@include('admin.data-import-download._import-download-form', ['no' => 4, 'upload_path' => '#', 'title' => 'Nilai Pengetahuan', 'excel' => '#'])
-									</tr>
-									<tr>
-										@include('admin.data-import-download._import-download-form', ['no' => 5, 'upload_path' => '#', 'title' => 'Nilai Keterampilan', 'excel' => '#'])
-									</tr>
-									<tr>
-										@include('admin.data-import-download._import-download-form', ['no' => 6, 'upload_path' => '#', 'title' => 'Nilai Sikap', 'excel' => '#'])
+										@include('admin.data-import-download._import-download-form', [
+											'no' => 3, 
+											'title' => 'Mata Pelajaran dan Kompetensinya', 
+											'export_path' => '#',
+											'upload_path' => '#', 
+										])
 									</tr>
 								</tbody>
 							</table>
@@ -85,4 +92,5 @@
         </div>
     </div>
     <!-- /#page-content-wrapper -->
+
 @endsection

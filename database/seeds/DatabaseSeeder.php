@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserTableSeeder::class);
         $this->call(DataKeahlianSeeder::class);
-        $this->call(GuruTableSeeder::class);
-        $this->call(SiswaAndKelasSeeder::class);
+        // $this->call(GuruTableSeeder::class);
+        // $this->call(SiswaAndKelasSeeder::class);
         $this->call(MapelSeeder::class);
         $this->call(KompetensiDasarSeeder::class);
         
-        $this->call(GuruMapelSeeder::class);     
+        // $this->call(GuruMapelSeeder::class);     
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 

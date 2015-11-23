@@ -31,7 +31,7 @@
 		            	<li class="divider"></li>
 						 --}}		            
  						<li><a href="{{ route('admin.guru.index') }}">Data Guru</a></li>
-		            	<li><a href="{{ route('admin.siswa.index') }}">Data Siswa</a></li>
+		            	{{-- <li><a href="{{ route('admin.siswa.index') }}">Data Siswa</a></li> --}}
 		            	<li><a href="{{ route('admin.kelas.index') }}">Data Kelas</a></li>
 		            	<li><a href="{{ route('admin.siswa-kelas.index') }}">Data Siswa Perkelas</a></li>
 		            	<li class="divider"></li>
@@ -56,7 +56,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				@if(Auth::check())
 					<li><a>Anda login sebagai {{ Auth::user()->owner->nama }}</a></li>
-			        <li><a href="{{ route('auth.logout') }}">Logout <b class="glyphicon glyphicon-log-out"></b></a></li>
+			        {{-- <li><a href="{{ route('auth.logout') }}">Logout <b class="glyphicon glyphicon-log-out"></b></a></li> --}}
 			    @endif
 		   	</ul>
 		</div>

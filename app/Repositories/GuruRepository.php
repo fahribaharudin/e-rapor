@@ -12,7 +12,7 @@ class GuruRepository extends Repository
 	 * 
 	 * @var App\Eloquent\Guru
 	 */
-	protected $guru;
+	public $guru;
 
 
 	/**
@@ -35,4 +35,16 @@ class GuruRepository extends Repository
 	{
 		return $this->guru->all();
 	}
+
+
+	/**
+	 * Get one guru from database
+	 * @param  integer $id 
+	 * @return mixed     
+	 */
+	public function getOne($id)
+	{
+		return $this->guru->find($id);
+	}
+
 }

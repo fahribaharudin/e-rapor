@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Services\Data\GuruListExport;
-use App\Services\Data\GuruListImport;
+use App\Jobs;
 
-class DataController extends Controller {
+class DataController extends Controller 
+{
 
     /**
      * Handle (GET) Request from: /admin/data/import
@@ -22,20 +22,64 @@ class DataController extends Controller {
 
 
 	/**
-	 * Handle (GET) Request from: /admin/data/import/draft-guru
+	 * Handle (GET) Request from: /admin/data/export-akademik
 	 * 
-	 * @param  GuruListExport $export 
-	 * @return Response                 
+	 * @return Response 
 	 */
-	public function exportGuru(GuruListExport $export)
+	public function exportAkademik()
 	{
-		return $export->handleExport();
+		$export = $this->dispatch(new Jobs\Data\ExportDataAkademik);
+		
+		return $export;
+	}
+
+	
+	/**
+	 * Handle (POST) Request from: /admin/data/import-akademik
+	 * 
+	 * @param  Request $request 
+	 * @return Response           
+	 */
+	public function importAkademik(Request $request)
+	{
+		$import = $this->dispatchFrom(Jobs\Data\ImportDataAkademik::class, $request);
+
+		if ($import) {
+			$request->session()->flash('message', 'Data akademik berhasil di import');
+		}
+		
+		return redirect()->back();		
 	}
 
 
-	public function importGuru(GuruListImport $reader)
+	/**
+	 * Handle (GET) Request from: /admin/data/export-data-siswa
+	 * 
+	 * @return Response
+	 */
+	public function exportSiswa()
 	{
-		$reader->handleImport();
+		$export = $this->dispatch(new Jobs\Data\ExportDataSiswa);
+
+		return $export;
+	}
+
+
+	/**
+	 * Handle (POST) Request from: /admin/data/import-data-siswa
+	 * 
+	 * @param  Request $request 
+	 * @return Response           
+	 */
+	public function importSiswa(Request $request)
+	{
+		$import = $this->dispatchFrom(Jobs\Data\ImportDataSiswa::class, $request);
+		
+		if ($import) {
+			$request->session()->flash('message', 'Data siswa berhasil di import');
+		}
+		
+		return redirect()->back();
 	}
 
 }
