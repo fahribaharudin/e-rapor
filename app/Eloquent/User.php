@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'username', 'password', 'level'];
+    protected $fillable = ['owner_id', 'owner_type', 'username', 'password', 'level'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -64,5 +64,32 @@ class User extends Model implements AuthenticatableContract,
     public function owner()
     {
         return $this->morphTo();
+    }
+
+    
+    /**
+     * Every User belongs to many Role
+     *
+     *  @return mixed 
+     */
+    public function roles() {
+        return $this->belongsToMany(Role::class, 'user_roles');
+    }
+
+    
+    /**
+     * Check if a User has a specific roles
+     * 
+     * @param  string  $name 
+     * @return boolean       
+     */
+    public function hasRole($name) {
+        foreach ($this->roles as $role) {
+            if ($role->hak_akses == $name) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

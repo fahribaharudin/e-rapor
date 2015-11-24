@@ -9,7 +9,18 @@ use App\Repositories\GuruRepository;
 
 class GuruController extends Controller
 {
-    
+	
+	/**
+	 * Handle (GET) Ajax Request from: /admin/guru-ajax
+	 * 
+	 * @return Response 
+	 */    
+	public function indexAjaxFeed(GuruRepository $guruRepository)
+	{
+		return $guruRepository->getAll();
+	}
+
+
 	/**
 	 * Handle (GET) request from: /admin/guru
 	 * 

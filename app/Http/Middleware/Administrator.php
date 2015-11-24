@@ -44,7 +44,7 @@ class Administrator
             }
         }
 
-        if ( ! $this->auth->user()->level == 'admin') {
+        if ( ! $this->auth->user()->hasRole('Administrator')) {
             return redirect()->route('home');
         }
 

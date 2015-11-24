@@ -49,24 +49,14 @@ class AuthController extends Controller
 	public function postLogin(Request $request)
 	{
 		if ($this->auth->attempt($request->except('_token'))) {
-			// simple user roles implementation using level attribute at
-			// User eloquent model
-			switch ($this->auth->user()->level) {
-				case 'admin':
-					return redirect()->route('admin');
-					break;
-
-				case 'guru':
-					return redirect()->route('guru');
-					break;
-
-				case 'walas':
-					return redirect()->route('walas');
-					break;
-				
-				default:
-					return redirect()->route('home');
-					break;
+			if ($this->auth->user()->hasRole('Administrator')) {
+				return redirect()->route('admin');
+			} elseif ($this->auth->user()->hasRole('Guru')) {
+				return redirect()->route('guru');
+			} elseif ($this->auth->user()->hasRole('Wali Kelas')) {
+				return redirect()->route('walas');
+			} else {
+				return redirect()->route('home');
 			}
 		}
 

@@ -58,4 +58,8 @@ $(document).ready(function() {
 
 		KelasDropDown.init();
 	}
+	else if ($('#UserCreate').length != 0) {
+		var CreateUserForm = require('./CreateUserForm');
+		CreateUserForm.init();
+	}
 });

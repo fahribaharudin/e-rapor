@@ -13,23 +13,41 @@
 					<li><a href="{{ route('admin') }}">Administrator Dashboard</a></li>
 					<li class="active">Data User</li>
 				</ol>
+				@if (Session::has('message')) 
+					<div class="alert alert-success">
+						<p>{{ Session::get('message') }}</p>
+					</div>
+				@endif
            		<div class="panel panel-default">
 					<div class="panel-body">
 						<div class="table-responsive">
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>#</th><th>Nama Lengkap</th><th>Username</th><th>level</th><th class="col-sm-1">Edit</th><th class="col-sm-1">Delete</th>
+										<th>#</th>
+										<th>Nama Lengkap</th>
+										<th>Username</th>
+										<th>Hak Akses</th>
+										<th class="col-sm-1">Edit</th>
+										<th class="col-sm-1">Delete</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php $i = 1 ?>
-									@foreach ($users->toArray() as $user)
+									@foreach ($users as $user)
 										<tr>
 											<td>{{ $i++ }}</td>
-											<td>{{ $user['owner']['nama'] }}</td>
-											<td>{{ $user['username'] }}</td>
-											<td>{{ $user['level'] }}</td>
+											<td>{{ $user->owner->nama }}</td>
+											<td>{{ $user->username }}</td>
+											<td>
+												<?php
+													$roles = '';
+													foreach($user->roles as $role) {
+														$roles = $roles . $role->hak_akses . ', ';
+													}
+												?>
+												{{ rtrim($roles, ', ') }}
+											</td>
 											<td><a href="#"><b class="glyphicon glyphicon-pencil"></b></a></td>
 											<td><a href="#"><b class="glyphicon glyphicon-trash"></b></a></td>
 										</tr>

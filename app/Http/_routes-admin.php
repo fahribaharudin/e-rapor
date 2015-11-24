@@ -21,6 +21,7 @@ Route::resource('/admin/users', 'Admin\UserController', ['only' => ['index', 'cr
 Route::resource('/admin/profile-sekolah', 'Admin\ProfileSekolahController', ['only' => 'index']);
 Route::resource('/admin/paket-keahlian', 'Admin\PaketKeahlianController', ['only' => 'index']);
 Route::resource('/admin/guru', 'Admin\GuruController', ['only' => 'index']);
+Route::get('/admin/guru-ajax', 'Admin\GuruController@indexAjaxFeed');
 Route::resource('/admin/siswa', 'Admin\SiswaController', ['only' => 'index']);
 Route::resource('/admin/kelas', 'Admin\KelasController', ['only' => 'index']);
 Route::resource('/admin/siswa-kelas', 'Admin\SiswaPerKelasController', ['only' => 'index']);

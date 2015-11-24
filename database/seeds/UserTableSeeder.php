@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Eloquent\User, App\Eloquent\Administrator, App\Eloquent\Guru;
+use App\Eloquent\User, App\Eloquent\Administrator, App\Eloquent\Guru, App\Eloquent\Role;
 
 class UserTableSeeder extends Seeder
 {
@@ -27,12 +27,15 @@ class UserTableSeeder extends Seeder
 	 */
 	protected $guru;
 
+    protected $role;
+
+
 	/**
 	 * Class Constructor
 	 * 
 	 * @param User $user
 	 */
-	public function __construct(User $user, Administrator $admin, Guru $guru)
+	public function __construct(User $user, Administrator $admin, Guru $guru, Role $role)
 	{
 		$this->user = $user;
 		$this->user->truncate();
@@ -42,6 +45,11 @@ class UserTableSeeder extends Seeder
 		
 		$this->guru = $guru;
 		$this->guru->truncate();
+
+        $this->role = $role;
+        $this->role->truncate();
+
+        DB::table('user_roles')->truncate();
 	}
 
 
@@ -53,26 +61,31 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         $users = [
-        	['username' => 'admin', 'password' => 'password', 'level' => 'admin'],
+        	['username' => 'admin', 'password' => 'password'],
         	// ['username' => 'guru1', 'password' => 'password', 'level' => 'guru'],
         	// ['username' => 'walas1', 'password' => 'password', 'level' => 'walas'],
+        ];
+
+        $roles = [
+            ['hak_akses' => 'Administrator'],
+            ['hak_akses' => 'Wali Kelas'],
+            ['hak_akses' => 'Guru'],
         ];
 
         // $penduduk = array_merge($this->createAdmin(), $this->createGuru());
         $penduduk = array_merge($this->createAdmin());
 
+        foreach ($roles as $role) {
+            $this->role->create($role);
+        }
+
         $i = 0;
         foreach ($users as $user) {
         	$u = new User($user);
         	$u->owner_id = $penduduk[$i]->id;
-        	
-            if ($user['level'] == 'admin') {
-        		$u->owner_type = Administrator::class;
-        	} else if ($user['level'] == 'guru' || $user['level'] == 'walas') {
-        		$u->owner_type = Guru::class;
-        	}
-
-        	$u->save();
+    		$u->owner_type = Administrator::class;
+            $u->save();
+            $u->roles()->attach(1);
 
         	$i++;
         }

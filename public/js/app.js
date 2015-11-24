@@ -48,7 +48,72 @@ var BidangDropdown = {
 
 module.exports = BidangDropdown;
 
-},{"./ProgramDropdown":7}],2:[function(require,module,exports){
+},{"./ProgramDropdown":8}],2:[function(require,module,exports){
+'use strict';
+
+var CreateUserForm = {
+	options: [],
+	init: function init() {
+		this.cacheDom();
+		this.render('admin');
+	},
+	cacheDom: function cacheDom() {
+		this.$levelSelect = $('#level');
+		this.$levelSelect.on('change', (function (evt) {
+			this.handleLevelSelect(evt);
+		}).bind(this));
+	},
+	render: function render(status) {
+		$('#namaField').html('');
+
+		if (status == 'admin') {
+			$('#namaField').html('\
+				<input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Lengkap">\
+			');
+		} else if (status == 'guru') {
+			var html = '';
+			this.options.forEach(function (guru) {
+				html = html + '<option value="' + guru.id + '">' + guru.nama + '</option>';
+			});
+			$('#namaField').html('\
+				<select name="nama" id="nama" class="form-control">' + html + '</select>\
+			');
+		}
+
+		this.options = [];
+	},
+	loadGuruData: function loadGuruData() {
+		$.ajax({
+			url: basePath + '/admin/guru-ajax',
+			success: (function (data) {
+				data.forEach((function (guru) {
+					this.options.push({ id: guru.id, nama: guru.nama });
+				}).bind(this));
+
+				this.render('guru');
+			}).bind(this)
+		});
+	},
+	loadAdminData: function loadAdminData() {
+		this.options.push({ id: 0, nama: 'Administrator' });
+
+		this.render('admin');
+	},
+	handleLevelSelect: function handleLevelSelect(evt) {
+		var level = evt.currentTarget.value;
+
+		if (level == 'walas' || level == 'guru') {
+			this.loadGuruData();
+		} else {
+			this.loadAdminData();
+		}
+	}
+
+};
+
+module.exports = CreateUserForm;
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var SemesterDropDown = require('./SemesterDropDown');
@@ -92,7 +157,7 @@ var KelasDropDown = {
 
 module.exports = KelasDropDown;
 
-},{"./SemesterDropDown":8}],3:[function(require,module,exports){
+},{"./SemesterDropDown":9}],4:[function(require,module,exports){
 'use strict';
 
 var ShowButton = require('./ShowButton');
@@ -145,7 +210,7 @@ var MapelDropdown = {
 
 module.exports = MapelDropdown;
 
-},{"./ShowButton":9}],4:[function(require,module,exports){
+},{"./ShowButton":10}],5:[function(require,module,exports){
 'use strict';
 
 var MapelEditForm = {
@@ -181,7 +246,7 @@ var MapelEditForm = {
 
 module.exports = MapelEditForm;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiPengetahuanButton = require('./ShowNilaiPengetahuanButton');
@@ -236,7 +301,7 @@ var MapelFromKelasDropDown = {
 
 module.exports = MapelFromKelasDropDown;
 
-},{"./ShowNilaiPengetahuanButton":11}],6:[function(require,module,exports){
+},{"./ShowNilaiPengetahuanButton":12}],7:[function(require,module,exports){
 'use strict';
 
 var ShowButton = require('./ShowButton');
@@ -291,7 +356,7 @@ var PaketDropdown = {
 
 module.exports = PaketDropdown;
 
-},{"./ShowButton":9}],7:[function(require,module,exports){
+},{"./ShowButton":10}],8:[function(require,module,exports){
 'use strict';
 
 var PaketDropdown = require('./PaketDropdown');
@@ -346,7 +411,7 @@ var ProgramDropdown = {
 
 module.exports = ProgramDropdown;
 
-},{"./PaketDropdown":6}],8:[function(require,module,exports){
+},{"./PaketDropdown":7}],9:[function(require,module,exports){
 'use strict';
 
 var MapelFromKelasDropDown = require('./MapelFromKelasDropDown');
@@ -396,7 +461,7 @@ var SemesterDropDown = {
 
 module.exports = SemesterDropDown;
 
-},{"./MapelFromKelasDropDown":5}],9:[function(require,module,exports){
+},{"./MapelFromKelasDropDown":6}],10:[function(require,module,exports){
 /**
  * ShowButton Module
  * @type {ShowButton}
@@ -422,7 +487,7 @@ var ShowButton = {
 
 module.exports = ShowButton;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiKeterampilanButton = {
@@ -443,7 +508,7 @@ var ShowNilaiKeterampilanButton = {
 
 module.exports = ShowNilaiKeterampilanButton;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiPengetahuanButton = {
@@ -464,7 +529,7 @@ var ShowNilaiPengetahuanButton = {
 
 module.exports = ShowNilaiPengetahuanButton;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiSikapButton = {
@@ -485,7 +550,7 @@ var ShowNilaiSikapButton = {
 
 module.exports = ShowNilaiSikapButton;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var ShowSiswaOnRaportButton = {
@@ -506,7 +571,7 @@ var ShowSiswaOnRaportButton = {
 
 module.exports = ShowSiswaOnRaportButton;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 $(document).ready(function () {
@@ -562,7 +627,10 @@ $(document).ready(function () {
 		};
 
 		KelasDropDown.init();
+	} else if ($('#UserCreate').length != 0) {
+		var CreateUserForm = require('./CreateUserForm');
+		CreateUserForm.init();
 	}
 });
 
-},{"./BidangDropdown":1,"./KelasDropDown":2,"./MapelDropdown":3,"./MapelEditForm":4,"./MapelFromKelasDropDown":5,"./PaketDropdown":6,"./SemesterDropDown":8,"./ShowNilaiKeterampilanButton":10,"./ShowNilaiSikapButton":12,"./ShowSiswaOnRaportButton":13}]},{},[14]);
+},{"./BidangDropdown":1,"./CreateUserForm":2,"./KelasDropDown":3,"./MapelDropdown":4,"./MapelEditForm":5,"./MapelFromKelasDropDown":6,"./PaketDropdown":7,"./SemesterDropDown":9,"./ShowNilaiKeterampilanButton":11,"./ShowNilaiSikapButton":13,"./ShowSiswaOnRaportButton":14}]},{},[15]);
