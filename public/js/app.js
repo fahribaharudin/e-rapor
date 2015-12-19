@@ -48,7 +48,7 @@ var BidangDropdown = {
 
 module.exports = BidangDropdown;
 
-},{"./ProgramDropdown":8}],2:[function(require,module,exports){
+},{"./ProgramDropdown":10}],2:[function(require,module,exports){
 'use strict';
 
 var CreateUserForm = {
@@ -157,7 +157,58 @@ var KelasDropDown = {
 
 module.exports = KelasDropDown;
 
-},{"./SemesterDropDown":9}],4:[function(require,module,exports){
+},{"./SemesterDropDown":11}],4:[function(require,module,exports){
+'use strict';
+
+var ShowNilaiPengetahuanFromGuruButton = require('./ShowNilaiPengetahuanFromGuruButton');
+
+var KelasFromGuruMapelDropDown = {
+	options: [],
+	init: function init(kode) {
+		var code = kode.split('-');
+		this.mapel_id = code[0];
+		this.semester = code[1];
+		this.cacheDom();
+		this.loadDataFromServer();
+	},
+	loadDataFromServer: function loadDataFromServer() {
+		$.ajax({
+			url: basePath + '/guru/nilai-pengetahuan/dropdown/mapel/' + this.mapel_id + '/semester/' + this.semester,
+			success: (function (data) {
+				console.log(data);
+				data.forEach((function (data) {
+					this.options.push(data);
+				}).bind(this));
+
+				this.render();
+			}).bind(this)
+		});
+	},
+	cacheDom: function cacheDom() {
+		this.$selectBox = $('#KelasDropdown');
+		this.$selectBox.on('change', (function (evt) {
+			this.handleChangeEvent(this.mapel_id, evt, this.semester);
+		}).bind(this));
+	},
+	render: function render() {
+		var html = '';
+		this.options.forEach(function (option) {
+			html = html + '<option value="' + option.id + '">' + option.nama_kelas + ' - tingkat: ' + option.tingkat_kelas + '</option>';
+		});
+		this.$selectBox.html(html);
+		this.options = [];
+	},
+	handleChangeEvent: function handleChangeEvent(mapel_id, evt, semester) {
+
+		if (evt.currentTarget.value != 'null') {
+			ShowNilaiPengetahuanFromGuruButton.init(mapel_id, evt.currentTarget.value, semester);
+		}
+	}
+};
+
+module.exports = KelasFromGuruMapelDropDown;
+
+},{"./ShowNilaiPengetahuanFromGuruButton":16}],5:[function(require,module,exports){
 'use strict';
 
 var ShowButton = require('./ShowButton');
@@ -210,7 +261,7 @@ var MapelDropdown = {
 
 module.exports = MapelDropdown;
 
-},{"./ShowButton":10}],5:[function(require,module,exports){
+},{"./ShowButton":12}],6:[function(require,module,exports){
 'use strict';
 
 var MapelEditForm = {
@@ -246,7 +297,53 @@ var MapelEditForm = {
 
 module.exports = MapelEditForm;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
+'use strict';
+
+var KelasFromGuruMapelDropDown = require('./KelasFromGuruMapelDropDown');
+
+var MapelFromGuruDropDown = {
+	options: [],
+	init: function init() {
+		this.options = [{ id: 'null', nama: 'Pilih Mapel :', paket_nama: '', semester: '' }];
+		this.cacheDom();
+		this.loadDataFromServer();
+	},
+	loadDataFromServer: function loadDataFromServer() {
+		$.ajax({
+			url: basePath + '/guru/nilai-pengetahuan/dropdown/mapel',
+			success: (function (data) {
+				data.forEach((function (data) {
+					this.options.push(data);
+				}).bind(this));
+
+				this.render();
+			}).bind(this)
+		});
+	},
+	cacheDom: function cacheDom() {
+		this.$selectBox = $('#MapelDropdown');
+		this.$selectBox.on('change', this.handleChangeEvent);
+	},
+	render: function render() {
+		var html = '';
+		this.options.forEach(function (option) {
+			html = html + '<option value="' + option.id + '-' + option.semester + '">' + option.nama + ' - ' + option.paket_nama + ' - Semester: ' + option.semester + '</option>';
+		});
+		this.$selectBox.html(html);
+	},
+	handleChangeEvent: function handleChangeEvent(evt) {
+
+		if (evt.currentTarget.value != 'null') {
+			KelasFromGuruMapelDropDown.init(evt.currentTarget.value);
+		}
+	}
+
+};
+
+module.exports = MapelFromGuruDropDown;
+
+},{"./KelasFromGuruMapelDropDown":4}],8:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiPengetahuanButton = require('./ShowNilaiPengetahuanButton');
@@ -301,7 +398,7 @@ var MapelFromKelasDropDown = {
 
 module.exports = MapelFromKelasDropDown;
 
-},{"./ShowNilaiPengetahuanButton":12}],7:[function(require,module,exports){
+},{"./ShowNilaiPengetahuanButton":15}],9:[function(require,module,exports){
 'use strict';
 
 var ShowButton = require('./ShowButton');
@@ -356,7 +453,7 @@ var PaketDropdown = {
 
 module.exports = PaketDropdown;
 
-},{"./ShowButton":10}],8:[function(require,module,exports){
+},{"./ShowButton":12}],10:[function(require,module,exports){
 'use strict';
 
 var PaketDropdown = require('./PaketDropdown');
@@ -411,7 +508,7 @@ var ProgramDropdown = {
 
 module.exports = ProgramDropdown;
 
-},{"./PaketDropdown":7}],9:[function(require,module,exports){
+},{"./PaketDropdown":9}],11:[function(require,module,exports){
 'use strict';
 
 var MapelFromKelasDropDown = require('./MapelFromKelasDropDown');
@@ -461,7 +558,7 @@ var SemesterDropDown = {
 
 module.exports = SemesterDropDown;
 
-},{"./MapelFromKelasDropDown":6}],10:[function(require,module,exports){
+},{"./MapelFromKelasDropDown":8}],12:[function(require,module,exports){
 /**
  * ShowButton Module
  * @type {ShowButton}
@@ -487,7 +584,7 @@ var ShowButton = {
 
 module.exports = ShowButton;
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiKeterampilanButton = {
@@ -508,7 +605,28 @@ var ShowNilaiKeterampilanButton = {
 
 module.exports = ShowNilaiKeterampilanButton;
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
+'use strict';
+
+var ShowNilaiKeterampilanFromGuruButton = {
+	path: '',
+	init: function init(mapel_id, kelas_id, semester) {
+		this.path = basePath + '/guru/mapel/' + mapel_id + '/nilai-keterampilan/kelas/' + kelas_id + '/semester/' + semester;
+		this.cacheDom();
+		this.render();
+	},
+	cacheDom: function cacheDom() {
+		this.$button = $('#ShowNilaiKeterampilanGuruButton');
+	},
+	render: function render() {
+		var html = '<a href="' + this.path + '" class="btn btn-primary">Tampilkan</a>';
+		this.$button.html(html);
+	}
+};
+
+module.exports = ShowNilaiKeterampilanFromGuruButton;
+
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiPengetahuanButton = {
@@ -529,7 +647,28 @@ var ShowNilaiPengetahuanButton = {
 
 module.exports = ShowNilaiPengetahuanButton;
 
-},{}],13:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
+'use strict';
+
+var ShowNilaiPengetahuanFromGuruButton = {
+	path: '',
+	init: function init(mapel_id, kelas_id, semester) {
+		this.path = basePath + '/guru/mapel/' + mapel_id + '/nilai-pengetahuan/kelas/' + kelas_id + '/semester/' + semester;
+		this.cacheDom();
+		this.render();
+	},
+	cacheDom: function cacheDom() {
+		this.$button = $('#ShowNilaiPengetahuanGuruButton');
+	},
+	render: function render() {
+		var html = '<a href="' + this.path + '" class="btn btn-primary">Tampilkan</a>';
+		this.$button.html(html);
+	}
+};
+
+module.exports = ShowNilaiPengetahuanFromGuruButton;
+
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var ShowNilaiSikapButton = {
@@ -550,7 +689,28 @@ var ShowNilaiSikapButton = {
 
 module.exports = ShowNilaiSikapButton;
 
-},{}],14:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
+'use strict';
+
+var ShowNilaiPengetahuanFromGuruButton = {
+	path: '',
+	init: function init(mapel_id, kelas_id, semester) {
+		this.path = basePath + '/guru/mapel/' + mapel_id + '/nilai-sikap/kelas/' + kelas_id + '/semester/' + semester;
+		this.cacheDom();
+		this.render();
+	},
+	cacheDom: function cacheDom() {
+		this.$button = $('#ShowNilaiSikapGuruButton');
+	},
+	render: function render() {
+		var html = '<a href="' + this.path + '" class="btn btn-primary">Tampilkan</a>';
+		this.$button.html(html);
+	}
+};
+
+module.exports = ShowNilaiPengetahuanFromGuruButton;
+
+},{}],19:[function(require,module,exports){
 'use strict';
 
 var ShowSiswaOnRaportButton = {
@@ -571,7 +731,7 @@ var ShowSiswaOnRaportButton = {
 
 module.exports = ShowSiswaOnRaportButton;
 
-},{}],15:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 $(document).ready(function () {
@@ -630,7 +790,30 @@ $(document).ready(function () {
 	} else if ($('#UserCreate').length != 0) {
 		var CreateUserForm = require('./CreateUserForm');
 		CreateUserForm.init();
+	} else if ($('#GuruNilaiPengetahuanIndex').length != 0) {
+		var MapelFromGuruDropDown = require('./MapelFromGuruDropDown');
+		MapelFromGuruDropDown.init();
+	} else if ($('#GuruNilaiSikapIndex').length != 0) {
+		var MapelFromGuruDropDown = require('./MapelFromGuruDropDown');
+		var KelasFromGuruMapelDropDown = require('./KelasFromGuruMapelDropDown');
+		KelasFromGuruMapelDropDown.handleChangeEvent = function (mapel_id, evt, semester) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiSikapFromGuruButton = require('./ShowNilaiSikapFromGuruButton');
+				ShowNilaiSikapFromGuruButton.init(mapel_id, evt.currentTarget.value, semester);
+			}
+		};
+		MapelFromGuruDropDown.init();
+	} else if ($('#GuruNilaiKeterampilanIndex').length != 0) {
+		var MapelFromGuruDropDown = require('./MapelFromGuruDropDown');
+		var KelasFromGuruMapelDropDown = require('./KelasFromGuruMapelDropDown');
+		KelasFromGuruMapelDropDown.handleChangeEvent = function (mapel_id, evt, semester) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiKeterampilanFromGuruButton = require('./ShowNilaiKeterampilanFromGuruButton');
+				ShowNilaiKeterampilanFromGuruButton.init(mapel_id, evt.currentTarget.value, semester);
+			}
+		};
+		MapelFromGuruDropDown.init();
 	}
 });
 
-},{"./BidangDropdown":1,"./CreateUserForm":2,"./KelasDropDown":3,"./MapelDropdown":4,"./MapelEditForm":5,"./MapelFromKelasDropDown":6,"./PaketDropdown":7,"./SemesterDropDown":9,"./ShowNilaiKeterampilanButton":11,"./ShowNilaiSikapButton":13,"./ShowSiswaOnRaportButton":14}]},{},[15]);
+},{"./BidangDropdown":1,"./CreateUserForm":2,"./KelasDropDown":3,"./KelasFromGuruMapelDropDown":4,"./MapelDropdown":5,"./MapelEditForm":6,"./MapelFromGuruDropDown":7,"./MapelFromKelasDropDown":8,"./PaketDropdown":9,"./SemesterDropDown":11,"./ShowNilaiKeterampilanButton":13,"./ShowNilaiKeterampilanFromGuruButton":14,"./ShowNilaiSikapButton":17,"./ShowNilaiSikapFromGuruButton":18,"./ShowSiswaOnRaportButton":19}]},{},[20]);

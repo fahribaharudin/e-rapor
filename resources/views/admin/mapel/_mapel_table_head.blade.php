@@ -23,6 +23,6 @@
 		<th>1</th>
 		<th>Guru</th>
 		<th>2</th>
-		<th>Guru</th>
+		<th>Guru</th>		
 	</tr>
 </thead>

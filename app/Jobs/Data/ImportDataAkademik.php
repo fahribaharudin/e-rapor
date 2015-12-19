@@ -32,6 +32,20 @@ class ImportDataAkademik extends ImportDataAbstract implements SelfHandling
     protected $kelasRepo;
 
     /**
+     * Siswa repository
+     * 
+     * @var App\Repositories\SiswaRepository
+     */
+    protected $siswaRepo;
+
+    /**
+     * User repository
+     * 
+     * @var App\Repositories\UserRepository
+     */
+    protected $userRepo;
+
+    /**
      * Contains the result of reading uploaded excel file
      * 
      * @var array
@@ -52,6 +66,12 @@ class ImportDataAkademik extends ImportDataAbstract implements SelfHandling
         );
         $this->guruRepo = new Repositories\GuruRepository(new Eloquent\Guru);
         $this->kelasRepo = new Repositories\KelasRepository(new Eloquent\Kelas);
+        $this->userRepo = new Repositories\UserRepository(
+            new Eloquent\User, 
+            new Eloquent\Administrator, 
+            new Eloquent\Guru
+        );
+        $this->siswaRepo = new Repositories\SiswaRepository(new Eloquent\Siswa);
 
         $this->readExcelFile($imported_data);
     }
@@ -102,12 +122,19 @@ class ImportDataAkademik extends ImportDataAbstract implements SelfHandling
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         foreach ($this->importedData['guru'] as $guru) {
-            if ($this->guruRepo->guru->where('nip', '=', $guru->nip)->first() == null) {
-                $this->guruRepo->guru->create([
+            $guru_db = $this->guruRepo->guru->where('nip', '=', $guru->nip)->first();
+            if ($guru_db == null) {
+                $guru_new = $this->guruRepo->guru->create([
                     'nama' => $guru->nama_guru,
                     'nip' => $guru->nip,
                 ]);
+            } else {
+                $guru_db->userAccount->delete();    
             }
+            
+            $this->createGuruUser($guru_new);
+
+
         }   
     }
 
@@ -121,31 +148,54 @@ class ImportDataAkademik extends ImportDataAbstract implements SelfHandling
     {
         // truncaate the guru table
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        $this->siswaRepo->siswa->truncate();
+        DB::table('siswa_perkelas')->truncate();
         $this->kelasRepo->kelas->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
 
         foreach ($this->importedData['kelas'] as $kelas) {
-            $guruValid = ($this->guruRepo->guru->where('nip', '=', $kelas->nip_wali_kelas)->first() != null);
+            $guru = $this->guruRepo->guru->where('nip', '=', $kelas->nip_wali_kelas)->first();
+            $guruValid = ($guru != null);
             $paketValid = ($this->paketRepo->paketKeahlian->find($kelas->id_paket_keahlian) != null);
 
             if ($guruValid && $paketValid) {
-                $guru_id = $this->guruRepo->guru->where('nip', '=', $kelas->nip_wali_kelas)->first()->id;
                 $kelasExists = ($this->kelasRepo->kelas->where('nama_kelas', '=', $kelas->nama_kelas)
                     ->where('tingkat_kelas', '=', $kelas->tingkat_kelas)
-                    ->where('guru_id', '=', $guru_id)
+                    ->where('guru_id', '=', $guru->id)
                     ->first() != null
                 );
 
                 if ( ! $kelasExists) {
                     $this->kelasRepo->kelas->create([
                         'paket_id' => $kelas->id_paket_keahlian,
-                        'guru_id' => $guru_id,
+                        'guru_id' => $guru->id,
                         'nama_kelas' => $kelas->nama_kelas,
                         'tingkat_kelas' => $kelas->tingkat_kelas,
                     ]);
+                    
+                    $guru->userAccount->roles()->sync([2, 3]);
                 }
             }
         }
+    }
+
+
+    /**
+     * Create a new user for guru
+     * 
+     * @param  Eloquent $guru 
+     * @return void       
+     */
+    protected function createGuruUser($guru)
+    {
+        $user = new Eloquent\User([
+            'username' => $guru->nip,
+            'password' => $guru->nip,
+        ]);
+
+        $user->owner()->associate($guru);
+        $user->save();
+        $user->roles()->attach(3);
     }
 
 }

@@ -12,7 +12,7 @@ class MapelRepository extends Repository
 	 * 
 	 * @var App\Eloquent\Mapel
 	 */
-	protected $mapel;
+	public $mapel;
 
 	/**
 	 * PaketKeahlian Eloquent Model

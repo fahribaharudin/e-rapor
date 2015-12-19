@@ -1,3 +1,5 @@
 Wali Kelas:
  ✔ Buat user baru di admin @done (15-11-24 20:46)
- ☐ Handle Guru Request
+
+Guru:
+  ☐ Listing nilai pengetahuan from the guru owner (Guru\NilaiPengetahuanController@indexByKelas)!

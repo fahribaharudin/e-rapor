@@ -61,5 +61,28 @@ $(document).ready(function() {
 	else if ($('#UserCreate').length != 0) {
 		var CreateUserForm = require('./CreateUserForm');
 		CreateUserForm.init();
+	} else if($('#GuruNilaiPengetahuanIndex').length != 0) {
+		var MapelFromGuruDropDown = require('./MapelFromGuruDropDown');
+		MapelFromGuruDropDown.init();
+	} else if($('#GuruNilaiSikapIndex').length != 0) {
+		var MapelFromGuruDropDown = require('./MapelFromGuruDropDown');
+		var KelasFromGuruMapelDropDown = require('./KelasFromGuruMapelDropDown');
+		KelasFromGuruMapelDropDown.handleChangeEvent = function(mapel_id, evt, semester) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiSikapFromGuruButton = require('./ShowNilaiSikapFromGuruButton');
+				ShowNilaiSikapFromGuruButton.init(mapel_id, evt.currentTarget.value, semester);
+			}
+		};
+		MapelFromGuruDropDown.init();
+	} else if($('#GuruNilaiKeterampilanIndex').length != 0) {
+		var MapelFromGuruDropDown = require('./MapelFromGuruDropDown');
+		var KelasFromGuruMapelDropDown = require('./KelasFromGuruMapelDropDown');
+		KelasFromGuruMapelDropDown.handleChangeEvent = function(mapel_id, evt, semester) {
+			if (evt.currentTarget.value != 'null') {
+				var ShowNilaiKeterampilanFromGuruButton = require('./ShowNilaiKeterampilanFromGuruButton');
+				ShowNilaiKeterampilanFromGuruButton.init(mapel_id, evt.currentTarget.value, semester);
+			}
+		};
+		MapelFromGuruDropDown.init();
 	}
 });

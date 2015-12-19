@@ -41,6 +41,17 @@ class Guru extends Model
      */
     public function mapel()
     {
-        return $this->belongsToMany(Mapel::class, 'guru_mapel');
+        return $this->belongsToMany(Mapel::class, 'guru_mapel')->withPivot('semester');;
+    }
+
+
+    /**
+     * Hasmany Relation to: App\Eloquent\Kelas
+     * 
+     * @return mixed 
+     */
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class, 'guru_id');
     }
 }

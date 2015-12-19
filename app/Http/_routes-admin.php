@@ -46,41 +46,8 @@ Route::get('/admin/mapel/{mapel_id}/kompetensi-dasar', [
 
 
 
-# Admin mapel - SelectBoxFeeder (Ajax request) routes...
-# Digunakan hanya untuk feeding ajax... 
-Route::get('/admin/mapel/select-box-feed/bidang', [
-	'as' => 'admin.mapel.select-box-feed.bidang', 
-	'uses' => 'Admin\MapelController@selectBoxFeedBidang'
-]);
-Route::get('/admin/mapel/select-box-feed/program/{bidang_id}', [
-	'as' => 'admin.mapel.select-box-feed.program', 
-	'uses' => 'Admin\MapelController@selectBoxFeedProgram'
-]);
-Route::get('/admin/mapel/select-box-feed/paket/{program_id}', [
-	'as' => 'admin.mapel.select-box-feed.paket',  
-	'uses' => 'Admin\MapelController@selectBoxFeedPaket'
-]);
-Route::get('/admin/kompetensi-dasar/select-box-feed/mapel/{paket_id}', [
-	'as' => 'admin.kompetensi-dasar.select-box-feed.mapel', 
-	'uses' => 'Admin\MapelController@selectBoxFeedMapel'
-]);
-
-
-
 # Admin nilai-pengetahuan routes...
 Route::resource('/admin/nilai-pengetahuan', 'Admin\NilaiPengetahuanController', ['only' => ['index']]);
-Route::get('/admin/nilai-pengetahuan/dropdown/kelas', [
-	'as' => 'admin.nilai-pengetahuan.dropdown.kelas', 
-	'uses' => 'Admin\NilaiPengetahuanController@kelasDropDown'
-]);
-Route::get('/admin/nilai-pengetahuan/dropdown/kelas/{kelas_id}/semester', [
-	'as' => 'admin.nilai-pengetahuan.dropdown.semester', 
-	'uses' => 'Admin\NilaiPengetahuanController@semesterFromKelasDropDown'
-]);
-Route::get('/admin/nilai-pengetahuan/dropdown/kelas/{kelas_id}/semester/{semester}/mapel', [
-	'as' => 'admin.nilai-pengetahuan.dropdown.semester.mapel', 
-	'uses' => 'Admin\NilaiPengetahuanController@mapelFromSemesterFromKelas'
-]);
 Route::get('/admin/mapel/{mapel_id}/kelas/{kelas_id}/semester/{semester}/nilai-pengetahuan', [
 	'as' => 'admin.nilai-pengetahuan.index-byMapel', 
 	'uses' => 'Admin\NilaiPengetahuanController@indexByMapel'

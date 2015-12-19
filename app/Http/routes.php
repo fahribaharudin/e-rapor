@@ -13,34 +13,32 @@ Route::group(['middleware' => 'auth'], function() {
 	
 	# Administrator Routes...
 	Route::group(['middleware' => 'admin'], function() {
+
 		require_once app_path('Http/_routes-admin.php');
+	
 	});
 
-	Route::get('/guru', ['as' => 'guru', function() { return 'guru'; }]);
-	Route::get('/walas', ['as' => 'walas', function() { return 'walas'; }]);
+	# Guru Routes...
+	Route::group(['middleware' => 'guru'], function() {
+		
+		require_once app_path('Http/_routes-guru.php');
+	
+	});
 
 	# Home Routes...
 	Route::get('/home', ['as' => 'home', function(Illuminate\Auth\Guard $auth) { 
-		switch ($auth->user()->level) {
-			case 'admin':
-				return redirect()->route('admin');
-				break;
-
-			case 'guru':
-				return redirect()->route('guru');
-				break;
-
-			case 'walas':
-				return redirect()->route('walas');
-				break;
-			
-			default:
-				return redirect()->route('home');
-				break;
-		}
+		if ($auth->user()->hasRole('Administrator')) {
+			return redirect()->route('admin');
+        } else if ($auth->user()->hasRole('Wali Kelas')) {
+			return redirect()->route('guru');
+        } else if ($auth->user()->hasRole('Guru')) {	
+			return redirect()->route('guru');
+        } else {
+			return redirect()->route('home');	
+        }
 	}]);
 });
 
-Route::get('/excel-test', function(\App\Services\Excel\GuruListImport $export) {
-	return $export->handleImport();
+Route::group([], function() {
+	require_once app_path('Http/_routes-ajax.php');
 });
